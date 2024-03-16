@@ -1,0 +1,356 @@
+********** TALKS **********
+
+Igor Carboni Oliveira <igorcarb@gmail.com>
+[UPDATED 24-03-06]
+
+Title: Meta-Mathematics of Complexity Theory
+
+Abstract: 
+
+Despite significant efforts from computer scientists and mathematicians, the P vs. NP problem and other fundamental questions about the complexity of computations seem to remain out of reach for existing techniques. The difficulty of making progress on such problems has motivated a number of researchers to investigate the logical foundations of computational complexity. Over the last few decades, several works at the intersection of logic and complexity theory showed that certain fragments of Peano Arithmetic collectively known as Bounded Arithmetic can formalize a large fraction of results from algorithms and complexity (e.g., the PCP Theorem and complexity lower bounds against restricted classes of Boolean circuits). It is natural to consider if the same theories can settle longstanding problems about the inherent difficulty of computations. 
+
+In the first part of this talk, we survey a few recent results on the unprovability of statements of interest to complexity theory in theories of Bounded Arithmetic and highlighted some open problems. In the second part of the talk, we will cover new results on the reverse mathematics of complexity lower bounds, a research direction which seeks to determine which axioms are necessary to prove certain results. We explore reversals in the setting of bounded arithmetic, with Cook's theory PV₁ as the base theory, and show that several natural lower bound statements about communication complexity, error correcting codes, and Turing machines are equivalent to widely investigated combinatorial principles such as the weak pigeonhole principle for polynomial-time functions and its variants. As a consequence, complexity lower bounds can be formally seen as fundamental mathematical axioms with far-reaching implications. Time permitting, we will also present several implications of these results: 
+
+- Under a plausible cryptographic assumption, the classical single-tape Turing machine Ω(n²)-time lower bound for Palindrome is unprovable in Jerábek’s theory APC₁.
+- While APC₁ proves one-way communication lower bounds for Set Disjointness, it does not prove one-way communication lower bounds for Equality, under a plausible cryptographic assumption.
+- An amplification phenomenon connected to the (un)provability of some lower bounds, under which a quantitatively weak n^(1 + ε) lower bound is provable if and only if a stronger (and often tight) n^c lower bound is provable.
+- Feasibly definable randomized algorithms can be feasibly defined deterministically (APC₁ is ∀Σ₁ˡ-conservative over PV₁) if and only if one-way communication complexity lower bound for Set Disjointness are provable in PV₁.
+
+**********
+
+Robert Robere <robere@cs.mcgill.ca>
+
+TFNP and Proof Complexity
+
+A recent line of work has demonstrated many deep connections between propositional proof systems and total NP search problems (TFNP). The basic correspondence allows us to associate a total search problem S with each propositional proof system P such that the following holds: for every tautology T, T has a short proof in P if and only if proving T can be “efficiently reduced” to proving the totality of S. This allows us to define a theory of reducibility for proof systems that is analogous to classical reducibility in complexity theory, it has led to the resolution of a number of open problems in both proof complexity and the theory of TFNP, and also has suggested new directions of study in both of these areas. In this talk we will survey this connection, the recent progress that has been made, and outline some next steps for the development to take.
+
+**********
+
+Johan Håstad <johanh@kth.se> [NOT FRIDAY]
+
+Title: On small-depth Frege proofs for PHP
+
+Abstract: We study Frege proofs for the one-to-one graph Pigeon Hole Principle
+defined on the $n\times n$ grid where $n$ is odd.
+We are interested in the case where each formula
+in the proof is a depth $d$ formula in the basis given by
+$\land$, $\lor$, and $\neg$.  We prove that in this situation the
+proof needs to be of size exponential in $n^{\Omega (1/d)}$.
+If we restrict the size of each line in the proof to be of
+size $M$ then the number of lines needed is exponential
+in $n/(\log M)^{O(d)}$.   The main technical component of
+the proofs is to design a new family of random restrictions
+and to prove the appropriate switching lemmas.
+
+**********
+
+Edward A. Hirsch <edward.a.hirsch@gmail.com>
+
+Tropical proof systems (joint with Y. Alekseev and D.Grigoriev)
+
+Tropical (min-plus) arithmetic has many applications in various areas of mathematics. The operations are the real addition (as the tropical multiplication) and the minimum (as the tropical addition). Recently, in several papers a version of Nullstellensatz in the tropical setting was demonstrated. 
+
+We introduce (semi)algebraic proof systems that use min-plus arithmetic. This allows us to view some known proof systems from a different angle. In particular, we provide a static Nullstellensatz-based tropical proof system that polynomially simulates daglike resolution and also has short proofs for the propositional pigeon-hole principle. Its dynamic version strengthened by an additional derivation rule (tropical analogue of resolution by linear inequality) is equivalent to R(LP), which derives nonnegative linear combinations of linear inequalities; this latter system is known to polynomially simulate Krajicek's R(CP) with unary coefficients. Lower bound results for these new systems are limited so far (I will mention a few), but they seem to be a promising direction.
+
+**********
+
+Dmitry Itsykson <dmitrits@gmail.com>
+
+Speaker: Dmitry Itsykson
+Title: Lower bounds for regular resolution over parities
+
+Abstract: The proof system resolution over parities (Res(⊕)) operates with disjunctions of linear equations (linear clauses) over GF(2); it extends the resolution proof system by incorporating linear algebra over GF(2). Over the years, several exponential lower bounds on the size of tree-like  Res(⊕) refutations have been established. However, proving a superpolynomial lower bound on the size of dag-like  Res(⊕) refutations remains a highly challenging open question.
+
+We prove an exponential lower bound for regular  Res(⊕). Regular  Res(⊕) is a subsystem of dag-like  Res(⊕) that naturally extends regular resolution. This is the first known superpolynomial lower bound for a fragment of dag-like Res(⊕) which is exponentially stronger than tree-like Res(⊕).
+
+The talk is based on the joint paper with Klim Efremenko and Michal Garlik to appear at STOC 2024.
+
+**********
+
+Dmitry Sokolov <sokolov.dmt@gmail.com>
+
+
+Title: Some applications of sunflowers
+
+We consider the notion of sunflowers and robust sunflowers. Through examples
+of sunflower applications we will try to answer the following questions:
+a) Which properties of sunflowers can help to solve the problem?
+b) Why ``robust sunflower'' is a sunflower?
+c) How we can find a robust sunflower?
+
+During this talk we go over classical applications like monotone circuit lower bounds
+as well as recent results DNF sparsification (and Res(k) lower bounds),
+depth-4 circuits lower bounds.
+
+**********
+
+Kilian Risse <kilian.risse@epfl.ch>
+
+Title:
+Clique Is Hard on Average for Unary Sherali-Adams
+
+Abstract:
+
+We show that unary Sherali-Adams requires proofs of size $n^{\Omega(d)}$
+to refute the existence of an $n^{0.1}$-clique in Erd\H{o}s-R\'{e}nyi
+random graphs whose maximum clique is of size  $d\leq 2\log n$. We
+obtain this result by introducing a technique inspired by
+pseudo-calibration which may be of independent interest. The technique
+involves defining a measure on monomials that precisely captures the
+contribution of a monomial to a refutation. This measure intuitively
+captures progress and should have further applications in proof complexity.
+
+Based on joint work with Susanna de Rezende and Aaron Potechin.
+
+**********
+
+Jonas Conneryd <jonas.conneryd@cs.lth.se>
+ 
+Title: Graph Colouring Is Hard on Average for Polynomial Calculus
+ 
+Abstract: We prove that polynomial calculus over any field requires linear degree to refute that sparse random regular graphs, as well as sparse Erdős-Rényi random graphs, are 3-colourable. Using the known relation between size and degree for polynomial calculus proofs, this implies strongly exponential lower bounds on proof size.
+ 
+**********
+
+Olaf Beyersdorff <olaf.beyersdorff@uni-jena.de>
+Kaspar Kasche <kaspar.kasche@uni-jena.de>
+
+Kaspar Kasche
+Polynomial calculus in QBF: circuit characterisation and lower bounds
+
+Abstract:  We investigate a natural generalisation of polynomial calculus to QBFs. We show a circuit characterisation of proof size in QBF PC, a size-degree relation (different from the size-degree relation in PC) and new lower bounds for proof size. 
+
+
+Olaf Beyersdorff
+Proof Complexity and Solving of Quantified Boolean Formulas
+
+Abstract: I give an overview of proof systems and lower bound techniques for QBF. I will also explain the correspondence (or absence thereof) between QCDCL (the CDCL version for QBF) and QBF resolution systems.
+
+**********
+
+Emil Jerabek <jerabek@math.cas.cz>
+
+Title:
+The theory of exponential integer parts
+
+Abstract:
+An integer part (IP) of an ordered ring is a discretely ordered
+subring D such that every element is within distance 1 from D.
+A classical result of Shepherdson characterizes models of the
+arithmetical theory IOpen as IPs of real-closed fields. Motivated by
+connections to bounded arithmetic, we are interested in extensions of
+Shepherdson's theorem to IPs closed under 2^x (= exponential IP = EIP)
+of real-closed exponential fields. In this talk, we axiomatize the
+first-order theories of such EIPs in a language with 2^x, in a language
+with a predicate for the powers of 2, and in the basic language of
+ordered rings; we investigate some properties of these theories, and
+a certain associated 2-player game on the integers.
+
+**********
+
+Pravesh Kothari <kotpravesh@gmail.com>
+
+The Kikuchi Matrix Method
+
+This method shows how to solve problems in combinatorics/coding theory by reducing them to finding refutations for semirandom XOR instances (which are then found using a new class of spectral methods). The following are the applications of this method so far:
+
+1. Smoothed CSP Refutation https://arxiv.org/abs/2109.04415 
+2. Resolving Feige's Conjecture on short even covers in arbitrary hypergraphs https://arxiv.org/abs/2109.04415 and https://arxiv.org/abs/2207.10850 
+3. Polynomially-improved Lower bounds on locally decodable codes https://eccc.weizmann.ac.il/report/2022/101 
+4. Exponential Lower bound on locally correctable codes https://arxiv.org/abs/2311.00558 
+5. Bounds on Restricted k-term Arithmetic Progressions in dense subsets of integers (this one is due to Castro-Silva and Briet) https://arxiv.org/abs/2304.03234
+
+**********
+
+Blekherman, Grigoriy <greg@math.gatech.edu>
+
+Title: Graph Homomorphisms and Polynomials
+
+Abstract: I would like to highlight recent interplay between problems in extremal combinatorics and real algebraic geometry. I will introduce graph homomorphism inequality problems, and
+discuss several topics including undecidability of certifying such inequalities and relations with the geometry of the Vandermonde map. I will then focus on structural properties of binomial inequalities and discuss some recent progress and open questions.
+
+**********
+
+Anastasiia Sofronova <anastasiia.sofronova@epfl.ch>
+
+Title: Top-Down Lower Bounds for Depth-Four Circuits
+
+Abstract: We present a top-down lower-bound method for depth-4 boolean circuits. In particular, we give a new proof of the well-known result that the parity function requires depth-4 circuits of size exponential in n^{1/3}. Our proof is an application of robust sunflowers and block unpredictability.
+This is a joint work with Mika Göös, Artur Riazanov and Dmitry Sokolov.
+
+**********
+
+Nicola Galesi <nicola.galesi@uniroma1.it>
+
+I can give a talk on the paper
+
+On the algebraic proof complexity of Tensor Isomorphism
+
+I wrote with Josh Grochow, Toni and Adrian She.
+
+**********
+
+A talk like this might or might not be scheduled on Friday
+
+TITLE
+Certifying Combinatorial Solving Using Cutting Planes with Strengthening Rules
+
+ABSTRACT
+The last couple of decades has witnessed a revolution in combinatorial optimization, with modern algorithms being used routinely to solve large-scale real-world problems, but the scientific understanding how these so-called combinatorial solvers can perform so well is quite poor. More importantly, even mature commercial solvers are known to sometimes produce wrong answers, which can be fatal for some types of applications.
+
+We will discuss how proof complexity can be leveraged to design so-called certifying solvers, which output not only an answer but also a machine-verifiable proof that this answer is correct. Quite surprisingly, it turns out that cutting planes, if suitably extended, seems to hit a sweet spot between simplicity and expressivity, making it a suitable proof system for not only advanced Boolean satisfiability (SAT) solving but also MaxSAT solving, pseudo-Boolean optimization, and constraint programming.
+
+**********
+
+
+
+Decoding Codes via Proofs
+
+The problem of finding the nearest codeword to a possibly corrupted received word, can naturally be viewed as an optimization problem. Over the past few years, continuous relaxations of this problem have led to new unique decoding and list decoding algorithms for several code families. In this talk, we will discuss a general framework for obtaining such algorithms using relaxations based on the Sum-of-Squares (SoS) hierarchy of semidefinite programs. In particular, this framework is an adaptation of the well-known “proofs to algorithms” paradigm to the setting of codes. If the proof of the fact that all pairs of codewords have large distance can be expressed in a proof system corresponding to the SoS hierarchy, then one can use it to obtain a list decoding algorithm for the corresponding code. We will discuss a few examples of this phenomenon.
+
+**********
+
+Abhimanyu Choudhury
+
+IMSc Dependency schemes in CDCL-based QBF solving: a proof-theoretic study
+
+In Quantified Boolean Formulas QBFs, dependency schemes help
+to detect spurious or superfluous dependencies that are implied by the
+variable ordering in the quantifier prefix but are not essential for
+constructing countermodels. This detection can provably shorten
+refutations in specific proof systems, and is expected to speed up
+runs of QBF solvers. The proof system QCDCL recently defined by
+Beyersdorff and Boehm (LMCS 2023) abstracts the reasoning employed by
+QBF solvers based on conflict-driven clause-learning (CDCL)
+techniques. We show how to incorporate the use of dependency schemes
+into this proof system, either in a preprocessing phase, or in the
+propagations and clause learning, or both. We then show that when the
+reflexive resolution path dependency scheme D^{rrs} is used, a mixed
+picture emerges: the proof systems that add D^{rrs} to QCDCL in these
+three ways are not only incomparable with each other, but are also
+incomparable with the basic QCDCL proof system that does not use D^{rrs}
+at all, as well as with several other resolution-based QBF proof
+systems. A notable fact is that all our separations are achieved
+through QBFs with bounded quantifier alternation.
+
+(Joint work with Meena Mahajan. Appeared in FSTTCS2023.)
+
+**********
+
+Noah Fleming <nfleming@mun.ca> 
+
+PPP is not closed under Turing Reductions
+
+We show that the TFNP class PPP, corresponding to the totality of the Pigeonhole Principle, is not closed under Turing reductions in the black-box model, even non-adaptively. All other classical TFNP subclasses (e.g. PLS, PPA, PPAD, PPADS, etc.) are known to be closed under Turing reductions, and the closely related subclass PWPP (corresponding to the weak pigeonhole principle) is closed under non-adaptive Turing reductions. This differentiates PPP from all other well-studied TFNP subclasses, and resolves a conjecture of Buss and Johnson which was recently highlighted in Daskalakis’ IMU Abacus Medal Lecture.
+
+To prove our results, we introduce a new type of pseudoexpectation operator that is tailored to proving lower bounds for black-box PPP, which may be of independent interest. If time permits, we also show how to use our pseudoexpectation operator to prove that the classical Ramsey problem is not black-box reducible to PPP, resolving another open-problem in the complexity of TFNP.
+
+**********
+
+Shuo Pang <shpa@di.ku.dk>
+
+I am willing to contribute a talk whose information is attached at the end.
+
+We compress the vertex Cop-Robber game over the long, narrow cylinder graph and prove tradeoff results. As an application, we obtain the first width-depth tradeoff for resolution that is both supercritical with respect to the input (i.e. formula) size and possessing nontrivial robustness. Other immediate applications include improved tradeoff results about Weisfeiler-Lehman algorithms and the quantifier depth in first-order logic.
+ 
+The Cop-Robber game was introduced in [Robertson-Seymour 1995] and is known to have a close relation to Tseitin formulas in proof complexity (see e.g. [Galesi-Talebanfard-Toran 2018]). A "compression" of a formula means a substitution of its variables to be functions of fewer variables; for this game, it means identifying edges in the graph in a certain manner. Our compression uses an idea in [Grohe et al. 2023], where the identification of edges is induced by identifying vertices periodically per row using different moduli for different rows. We use a different set of moduli, and the main technical contribution is a strategy of the Robber to survive long in the compressed game even when the number of Cops increases up to twice of the minimum-to-win.
+
+**********
+
+Theodoros Papamakarios <papamakarios@uchicago.edu>
+
+Title/Topic: On the hardness of automating bounded depth Frege systems
+
+Abstract: The problem of proof search is central to automated theorem proving, and has been the driving force behind many theoretical advances: Provided that short proofs of a statement exist, how hard is to find one? More concretely, a proof system P is called automatable if there is an algorithm that, given a formula F, finds a P-proof of F in time polynomial in the size of the shortest P-proof of F. Starting with [Atserias, Muller, JACM, 2020], many weak proof systems, including resolution, Res(k), cutting planes, various algebraic proof systems and bounded depth Frege, have been shown to be as hard to automate as possible. I would like to propose a talk focusing on the hardness of automating bounded depth Frege systems.
+
+**********
+
+Mika Göös <mika.goos@epfl.ch>
+
+TITLE: Hardness Condensation by Restriction
+
+- - - - - ABSTRACT
+
+Can every n-bit boolean function with deterministic query complexity k << n be restricted to O(k) variables such that the query complexity remains Omega(k)? That is, can query complexity be condensed via restriction? We study such hardness condensation questions in both query and communication complexity, proving two main results:
+
+(Negative): Query complexity cannot be condensed in general: There is a function f with query complexity k such that any restriction of f to O(k) variables has query complexity O(k^{3/4}).
+
+(Positive): Randomised communication complexity can be condensed for the sink-of-xor function. This yields a quantitatively improved counterexample to the log-approximate-rank conjecture, achieving parameters conjectured by Chattopadhyay, Garg, and Sherif (2021).
+
+Along the way we show the existence of Shearer extractors---a new type of seeded extractor whose output bits satisfy prescribed dependencies across distinct seeds.
+
+Joint work with Ilan Newman, Artur Riazanov, and Dmitry Sokolov
+
+**********
+
+Iddo Tzameret <iddo.tzameret@gmail.com>
+
+Functional Lower Bounds in Algebraic Proofs: Symmetry, Lifting, and Barriers
+
+Abstract: Strong algebraic proof systems such as IPS (Ideal Proof System; Grochow-Pitassi 2018)
+offer a general model for deriving polynomials in an ideal and refuting unsatisfiable propositional
+formulas, subsuming most standard propositional proof systems. A major approach for lower
+bounding the size of IPS refutations is the Functional Lower Bound Method (Forbes, Shpilka,
+Tzameret and Wigderson 2021), which reduces the hardness of refuting a polynomial
+equation f(x) = 0 with no Boolean solutions to the hardness of computing the function 1/f(x)
+over the Boolean cube with an algebraic circuit. Using symmetry we provide a general way to
+obtain many new hard instances against fragments of IPS via the functional lower bound method.
+This includes hardness over finite fields and hard instances different from Subset Sum variants
+both of which were unknown before, and significantly improved constant-depth IPS lower bounds. 
+Conversely, we expose the limitation of this method by showing it cannot lead to proof complexity 
+lower bounds for any hard Boolean instance (e.g., CNFs) for any sufficiently strong proof systems 
+(including AC0[p]-Frege).
+
+Joint work with Tuomas Hakoniemi and Nutan Limaye
+
+
+********** FROM THE OBERWOLFACH SUBMISSION SYSTEM **********
+
+Ilario Bonacina <ilario.bonacina@upc.edu>
+
+Title: Proof systems for MaxSAT
+
+MaxSAT is the problem of finding an assignment satisfying the maximum number of clauses in a CNF formula. This talk gives an overview of recent results about proof systems for MaxSAT, i.e. formal systems that can be used to certify the optimum value of a MaxSAT problem. In particular, we show generalizations of Polynomial Calculus sound and complete both for MaxSAT and the natural generalization of MaxSAT to arbitrary sets of polynomials. We show how to view of (semi-)algebraic static proof systems, such as Nullstellensatz and Sherali-Adams, in the language used to describe proof systems for MaxSAT, such as MaxSAT-Resolution. We give combinatorial principles capturing the strength of some (semi-)algebraic static proof systems. This talk is based on joint works with Maria Luisa Bonet and Jordi Levy.
+
+**********
+
+Pudlak Pavel <pudlak@math.cas.cz>
+
+title: On quantified propositional calculus and restricted  implicit proofs
+
+abstract: We will show that the restricted implicit proof system of G_i is
+polynomially equivalent to G_{i+1}.
+
+**********
+
+Jacobo Toran Romero <jacobo.toran@uni-ulm.de>
+
+[ABSTRACT WILL BE UPDATED --- ONE OF THE RESULTS IS BROKEN]
+
+Proposed talk: Pebble games and Algebraic Proof Systems Meet Again
+
+Abstract: 
+We give some new connections between pebble games and algebraic proof systems, showing that there is a parallelism between the reversible, black and black-white pebbling games on one side, and the three algebraic proof systems NS, MC and PC on the other side. In particular we will provide: Very similar results as those proven in [deRezendeMNR21] for reversible pebbling and Nullstellensatz , for the case of black pebbling and Monomial Calculus (pebbling space and time correspond to degree and size). These results imply degree separations between NS and MC as well as strong degree-size tradeoffs for MC. We will also show that for any unsatisfiable CNF formula ,F, the variable space in a Resolution refutation of the formula is a lower bound for the monomial space in a PCR refutation for the extended formula F[⊕]. This implies that for any DAG G, the monomial space needed in a PCR refutation of the XOR pebbling formula for G is lower bounded by the black-white pebbling number of G. This and solves affirmatively Open Problem 7.11 from [Buss, Nordström 21]. These are joint results with my student Lisa-Marie Jaser.
+
+**********
+
+Pavel Hrubes <pahrubes@gmail.com>
+
+Title: A variant of monotone calculus
+
+Abstract: Monotone calculus is a Frege-style system which operates with implications A-->B where A and B are monotone. I will define a weakening of this system and show its connections with monotone arithmetic circuits.
+
+**********
+
+Martin Grohe <grohe@informatik.rwth-aachen.de>
+
+Title: Compressing CFI Graphs and Lower Bounds for the Weisfeiler-Leman Refinements
+
+Abstract:
+The $k$-dimensional Weisfeiler-Leman ($k$-WL) algorithm is a simple combinatorial algorithm that was originally designed as a graph isomorphism heuristic. It naturally finds applications in Babai's quasipolynomial-time isomorphism algorithm, practical isomorphism solvers, and algebraic graph theory. However, it also has surprising connections to other areas such as logic, combinatorial optimization, machine learning, and proof complexity.
+
+The algorithm iteratively computes a coloring of the $k$-tuples of vertices of a graph. Since Fürer's linear lower bound [ICALP 2001], it has been an open question whether there is a super-linear lower bound for the iteration number for $k$-WL on graphs. We answer this question affirmatively, establishing an $\Omega(n^{k/2})$-lower bound for all $k$.
+
+This is joint work with Moritz Lichter, Daniel Neuen, and Pascal Schweitzer.
+
+**********
