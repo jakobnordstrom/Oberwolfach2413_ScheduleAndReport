@@ -1,0 +1,30 @@
+Oberwolfach
+
+Hej Jonas,
+
+Du ska nu ha tillgång till https://github.com/jakobnordstrom/Oberwolfach2413_ScheduleAndReport/.
+
+I katalogen "Schedule_Oberwolfach2413" finns filer för schemat.
+
+Snabba instruktioner:
+
+(1) Excel-filen "Oberwolfach_2413_ScheduleOverview.xlsx" är jag chef över; LaTeX filen "Oberwolfach_2413_FullSchedulePlusAbstracts.tex" är du chef över. Redigera alltså *inte* i Excel-filen, men hämta information därifrån.
+
+(2) Början av LaTeX-filen har uppdaterats med Oberwolfach-info, men från och med måndag morgon är allt fel och härrör från en Dagstuhl-workshop 2022.
+
+(3) Redigera filen varsamt. Som du kommer att se finns det utkommenterad info för Dagstuhl och Banff -- det spar tid tills nästa gång att den finns kvar. Det finns länkar i filen från schemat till referaten -- se till att lägga in sådan information när du ersätter de gamla presentationerna med nya.
+
+(4) Excel-filen visar hur schemat ser ut. Information om talare, titlar och referat finns i filen "AbstractAndTitles_ProposedTalks.txt". Lägg in referaten sist sorterade i alfabetisk ordning på talare -- då behöver vi inte flytta runt sedan på flera ställen ifall det blir ändringar i schemat.
+
+(5) Om det saknas något så mejlar du talaren (tror att alla ska ha e-postadresser -- säg till annars) med kopia till mig. Om du kommer ihåg så kan du först kolla på Oberwolfach-sajten för vår workshop om det finns någon information där ifall den saknas i min textfil -- en del talare lade upp information i Oberwolfach-systemet istället för att mejla till oss, som vi bad om.
+
+(6) Se till att harmonisera titlar så att kapitalisering är konsekvent. I Suggest to Typeset Titles in Title Case, but sentence case is certainly also an option så länge som det är konsekvent. Viss information behöver kanske också flyttas runt lite. Vi har bara en talare per presentation, och "joint work with" information kan flyttas längst ned om den finns högst upp eller i titeln.
+
+(7) Om det är något som ser katastrofalt illa ut i formattering, eller om det är stavfel, så är det väl trevligt om du fixar det också, men annars är väl principen att talarna själva ansvarar för sina referat.
+
+Tror att detta var allt, men jag har skrivit snabbt och kan mycket väl ha missat något. Fråga om något är oklart.
+
+Det vore bra att kunna skicka ut fullständigt schema med referat på tisdag eller onsdag.
+
+I all hast,
+Jakob
