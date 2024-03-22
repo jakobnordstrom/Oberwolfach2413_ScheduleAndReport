@@ -224,14 +224,13 @@ in the lounge
 {\bf 10:30--11:00} & \hyperref[Fleming]{Noah Fleming}
 {\em PPP Is Not Closed Under Turing Reductions} \\
 
-{\bf 11:00--11:30} & \hyperref[Thapen]{Neil Thapen}
+{\bf 11:00--11:30} & \hyperref[Thapen1]{Neil Thapen}
 {\em TFNP Intersections and Feasible Disjunction} \\
 
 {\bf 11:30--12:00} & \hyperref[Hrubes]{Pavel Hrube\v{s}}
 {\em A Variant of Monotone Calculus} \\
 
-{\bf 12:00--12:30} & \hyperref[Tzameret]{Iddo Tzameret}
-{\em Functional Lower Bounds in Algebraic Proofs: Symmetry, Lifting, and Barriers} \\
+{\bf 12:00--12:30} & Presentation of participants \\
 
 {\bf 12:30%--13:00
 } &  Lunch\\
@@ -246,7 +245,8 @@ in the lounge
 {\bf 17:30--18:00} & \hyperref[Papamakarios]{Theodoros Papamakarios}
 {\em On the Hardness of Automating Bounded Depth Frege Systems} \\
 
-{\bf 18:00--18:30} & Presentation of participants \\
+{\bf 18:00--18:30} & \hyperref[Tzameret]{Iddo Tzameret}
+{\em Functional Lower Bounds in Algebraic Proofs: Symmetry, Lifting, and Barriers} \\
 
 {\bf 18:30%--19:30
 } & Dinner \\
@@ -386,16 +386,13 @@ in the lounge
 
 {\bf 08:00--09:00}  & Breakfast\\
 
-{\bf 09:00--09:30} & \hyperref[TBDFri900]{TBD}
-{\em TBD} \\
-
-{\bf 09:00--09:30} & \hyperref[TBDFri930]{TBD}
-{\em TBD} \\
+{\bf 09:00--10:00} & \hyperref[Nordstrom]{Jakob Nordstr\"{o}m}
+{\em Certifying Combinatorial Solving Using Cutting Planes With Strengthening Rules} \\
 
 {\bf 10:00--10:30} & {Coffee break} \\
 
-{\bf 10:30--11:00} & \hyperref[TBDFri1030]{TBD}
-{\em TBD} \\
+{\bf 10:30--11:00} & \hyperref[Thapen2]{Neil Thapen}
+{\em Strength of the Dominance Rule} \\
 
 {\bf 11:00--11:30} & \hyperref[Potechin]{Aaron Potechin}
 {\em Bounds on the Total Coefficient Size of Nullstellensatz Proofs of the Pigeonhole Principle} \\
@@ -408,10 +405,11 @@ in the lounge
 
 
 
-{\bf 12:30%--13:00
+{\bf 12:30--13:30
 } &  Lunch\\
 
-{\bf 13:30--14:00} &  Coffee and cake \\
+{\bf 13:30--14:00} &  \hyperref[TBDFri1400]{TBD}
+{\em TBD} \\
 
 {\bf 14:00--14:30} & \hyperref[TBDFri1400]{TBD}
 {\em TBD} \\
@@ -485,6 +483,8 @@ We give an overview of the ideas behind our FOCS 2023 paper proving that the pol
 
 This is joint work with Susanna F. de Rezende, Jakob Nordström, Shuo Pang, and Kilian Risse. 
 
+\subsection*{Susanna F. de Rezende: \textcolor{red}{MISSING TITLE AND ABSTRACT}}\label{Rezende}
+
 
 \subsection*{Noah Fleming: PPP Is Not Closed Under Turing Reductions}\label{Fleming}
 
@@ -496,7 +496,7 @@ To prove our results we develop new lower bound tools in proof complexity. In pa
 
 We initiate the study of (algebraic) proof complexity approaches to proving that two tensors are non-isomorphic. The Tensor Isomorphism problem (TI) has recently emerged as having connections to multiple areas of research within complexity and beyond, but the current best upper bound is essentially the brute force algorithm. 
 Our main results are an $\Omega(n)$ lower bounds on PC degree or SoS degree for Tensor Isomorphism, and a nontrivial upper bound for testing isomorphism of tensors of bounded rank.
-We also show that PC cannot perform basic linear algebra in sub-linear degree, such as comparing the rank of two matrices, or deriving $BA = I$ from $AB = I$. As linear algebra is a key tool for understanding tensors, we introduce a strictly stronger proof system, $PC+\mathrm{Inv}$, which allows as derivation rules all substitution instances of the implication $AB = I \implies BA = I$. We conjecture that even $PC+\mathrm{Inv}$ cannot solve TI in polynomial time either, but leave open getting lower bounds on $PC+\mathrm{Inv}$ for any system of equations, let alone those for TI. 
+We also show that PC cannot perform basic linear algebra in sub-linear degree, such as comparing the rank of two matrices, or deriving $BA = I$ from $AB = I$. As linear algebra is a key tool for understanding tensors, we introduce a strictly stronger proof system, $\mathrm{PC}+\mathrm{Inv}$, which allows as derivation rules all substitution instances of the implication $AB = I \implies BA = I$. We conjecture that even $\mathrm{PC}+\mathrm{Inv}$ cannot solve TI in polynomial time either, but leave open getting lower bounds on $\mathrm{PC}+\mathrm{Inv}$ for any system of equations, let alone those for TI. 
 
 
 \subsection*{Martin Grohe: Compressing CFI Graphs and Lower Bounds for the Weisfeiler-
@@ -586,6 +586,13 @@ This method shows how to solve problems in combinatorics/coding theory by reduci
 \item Bounds on Restricted k-term Arithmetic Progressions in dense subsets of integers (this one is due to Castro-Silva and Briet) \url{https://arxiv.org/abs/2304.03234}
 \end{enumerate}
 
+\subsection*{Jakob Nordstr\"{o}m: Certifying Combinatorial Solving Using Cutting Planes with Strengthening Rules}\label{Nordstrom}
+
+
+The last couple of decades has witnessed a revolution in combinatorial optimization, with modern algorithms being used routinely to solve large-scale real-world problems, but the scientific understanding how these so-called combinatorial solvers can perform so well is quite poor. More importantly, even mature commercial solvers are known to sometimes produce wrong answers, which can be fatal for some types of applications.
+
+We will discuss how proof complexity can be leveraged to design so-called certifying solvers, which output not only an answer but also a machine-verifiable proof that this answer is correct. Quite surprisingly, it turns out that cutting planes, if suitably extended, seems to hit a sweet spot between simplicity and expressivity, making it a suitable proof system for not only advanced Boolean satisfiability (SAT) solving but also MaxSAT solving, pseudo-Boolean optimization, and constraint programming.
+
 \subsection*{Shuo Pang: A Supercritical and Robust Trade-off for Resolution Depth Versus Width and Weisfeiler—Leman}\label{Pang}
 We present the first robust trade-offs for resolution where low width implies depth superlinear in the formula size. We give analogous results for the Weisfeiler--Leman algorithm, which also translate into trade-offs between number of variables and quantifier depth in first-order logic.
 
@@ -596,7 +603,7 @@ The problem of proof search is central to automated theorem proving, and has bee
 
 When studying algebraic proof systems such as Nullstellensatz, Sherali-Adams, and the sum of squares hierarchy, we are generally interested in the size and degree of proofs. A natural question is what happens when we take the size of the coefficients of the proof into account. 
 
-There are several approaches for studying this. One approach is to look at unary Nullstellensatz and unary Sherali-Adams where all coefficients of the proof must be integers and we take the proof size to be the sum of the magnitudes of the coefficients. As shown by the paper "Separations in Proof Complexity and TFNP" by Göös et. al., this approach has several advantages. Two of the results in this paper (out of many) are that unary Nullstellensatz is closely connected to the TFNP class PPAD and unary Sherali-Adams is closely connected to the TFNP class PPADS. A second approach is to look at the bit complexity of the proofs. While this is generally quite challenging, there is one formula, the Binary Value Principle, for which several strong lower bounds have been shown. In particular, there are conditional superpolynomial lower bounds for the extremely powerful Ideal Proof System and unconditional exponential lower bounds for Res-Lin and for polynomial calculus with square roots and extension variables.
+There are several approaches for studying this. One approach is to look at unary Nullstellensatz and unary Sherali-Adams where all coefficients of the proof must be integers and we take the proof size to be the sum of the magnitudes of the coefficients. As shown by the paper ``Separations in Proof Complexity and TFNP" by Göös et. al., this approach has several advantages. Two of the results in this paper (out of many) are that unary Nullstellensatz is closely connected to the TFNP class PPAD and unary Sherali-Adams is closely connected to the TFNP class PPADS. A second approach is to look at the bit complexity of the proofs. While this is generally quite challenging, there is one formula, the Binary Value Principle, for which several strong lower bounds have been shown. In particular, there are conditional superpolynomial lower bounds for the extremely powerful Ideal Proof System and unconditional exponential lower bounds for Res-Lin and for polynomial calculus with square roots and extension variables.
 
 In our work, we take a third approach where we investigate the total coefficient size of proofs without requiring that the coefficients are integers. This approach has the advantage that the minimum total coefficient size of a proof can be computed using a linear program. This approach also allows us to investigate the question of whether having fractional coefficients reduces the total coefficient size needed. In this talk, I will give a direct proof that any Nullstellensatz proof of the pigeonhole principle must have exponential total coefficient size. 
 
@@ -643,6 +650,11 @@ During this talk we go over classical applications like monotone circuit lower b
 as well as recent results DNF sparsification (and $\mathrm{Res}(k)$ lower bounds),
 depth-$4$ circuit lower bounds.
 
+\subsection*{Neil Thapen: Strength of the Dominance Rule}\label{Thapen2}
+\textcolor{red}{MISSING ABSTRACT}
+
+\subsection*{Neil Thapen: TFNP Intersections and Feasible Disjunction}\label{Thapen1}
+\textcolor{red}{MISSING ABSTRACT}
 
 \subsection*{Jacobo Tor\'{a}n: Pebble Games and Algebraic Proof Systems}\label{Toran}
 
@@ -678,19 +690,8 @@ Joint work with Tuomas Hakoniemi and Nutan Limaye.
 
 
 
-\subsection*{Susanna F. de Rezende: \textcolor{red}{MISSING TITLE AND ABSTRACT}}\label{Rezende}
 
 
-\subsection*{Neil Thapen: TFNP Intersections and Feasible Disjunction}\label{Thapen}
-\textcolor{red}{MISSING ABSTRACT}
-
-\subsection*{Jakob Nordstr\"{o}m: Certifying Combinatorial Solving Using Cutting Planes with Strengthening Rules}\label{Nordstrom}
-
-A talk like this might or might not be scheduled on Friday
-
-The last couple of decades has witnessed a revolution in combinatorial optimization, with modern algorithms being used routinely to solve large-scale real-world problems, but the scientific understanding how these so-called combinatorial solvers can perform so well is quite poor. More importantly, even mature commercial solvers are known to sometimes produce wrong answers, which can be fatal for some types of applications.
-
-We will discuss how proof complexity can be leveraged to design so-called certifying solvers, which output not only an answer but also a machine-verifiable proof that this answer is correct. Quite surprisingly, it turns out that cutting planes, if suitably extended, seems to hit a sweet spot between simplicity and expressivity, making it a suitable proof system for not only advanced Boolean satisfiability (SAT) solving but also MaxSAT solving, pseudo-Boolean optimization, and constraint programming.
 
 \end{document}
 
