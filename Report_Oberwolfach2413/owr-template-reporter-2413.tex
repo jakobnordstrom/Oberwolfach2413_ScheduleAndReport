@@ -1,0 +1,2364 @@
+%% Template for writing an Oberwolfach Report
+%% maintained by <reports at mfo dot de>
+
+%% Before submitting the report to <reports at mfo dot de>
+%% you can run automated tests for common errors online at
+%% https://www.mfo.de/scientific-program/publications/owr/diagnostics
+%% The required "owrart.cls" file can be found at
+%% https://www.mfo.de/scientific-program/publications/owr/owrart.cls
+
+\documentclass[report]{owrart}
+
+%% Enter additionally required packages below this comment.
+%% * Please be conservative and only require common packages.
+%% * Do not use any packages, which alter the page/font layout.
+%% * For the inclusion of graphics, use the graphicx package.
+%% * Please use .eps graphics only (no .jpg, .png or .pdf).
+%% Note that the tex source has to be compilable to .dvi format.
+
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{enumitem}
+\usepackage{amssymb}
+\usepackage{mathtools}
+
+%% The following are report-specific settings.
+%% Usually, they do not need modification.
+\reporter{Jonas Conneryd} % Reporter of this report
+\reportyear{2024} % The year of the report
+\reportnumber{REPORT NUMBER} % The number of the report
+\reportname{Proof Complexity and Beyond} % The title of the workshop
+\reportdate{24 March -- 29 March, 2024} % Date of the workshop
+\organizers{Albert Atserias, Barcelona\\
+Meena Mahajan, Chennai\\
+Jakob Nordstr\"{o}m, Copenhagen/Lund\\
+Alexander Razborov, Chicago} % Organizers
+%% Example:
+%% \reporter{Billie N.E. Xample}
+%% \reportyear{2009}
+%% \reportnumber{01}
+%% \reportname{TITLE-OF-WORKSHOP}
+%% \reportdate{1 March -- 6 March 2005}
+%% \organizers{Jordan J. Smith, New York\ Malin Muster, M\"unchen\}
+%% Note: The number of the report differs from
+%% the number of the workshop, which is NUMBER-OF-WORKSHOP.
+
+
+
+%% The following settings may need modification:
+
+%% Please insert an Mathematical Subject Classification (MSC, according to https://zbmath.org/classification/)
+%% of this report, eg: \subjclass{14xx, 27xx} 
+\subjclass{MSC}
+
+%% By default, the MSC is preceeded by
+%% "Mathematics Subject Classification (2020)"
+%% You can change this text with the following line:
+%% \def\owrsubjclassname{Mathematics Subject Classification (2020)}
+
+%% The default prefix 'Reporter:' displayed at the end of the report
+%% in front of the reporter name can be changed, e.g. if there are two reporters
+%% \reporterprefix{Reporters:}
+
+%% By default, the title specified by \reportname is displayed also in
+%% the header, on the title page and in the table of contents. In some
+%% cases this is not convenient, and these settings can be altered by
+%% the commands \reporthead, \reporttitle, and \reporttoc, respectively.
+%% \reporthead{TITLE-OF-WORKSHOP (Header)}
+%% \reporttitle{TITLE-OF-WORKSHOP (Title page)}
+%% \reporttoc{TITLE-OF-WORKSHOP (Toc)}
+
+%% If the event was NOT a standard Oberwolfach Workshop,
+%% please remove the comment and specify the type here.
+%% eg: \workshoptype{Mini-Workshop}
+%% \workshoptype{WORKSHOP-TYPE}
+
+%% After every \begin{talk}, the command \resetcounters is called, which resets
+%% the following counters: section, subsection, equation, footnote, figure.
+%% If you want to automatically reset other counters as well (eg theorem),
+%% you need to redefine this command as shown below.
+
+\renewcommand{\resetcounters}{
+ \setcounter{section}{0}
+ \setcounter{subsection}{0}
+ \setcounter{equation}{0}
+ \setcounter{footnote}{0}
+ \setcounter{figure}{0}
+ \setcounter{theorem}{0}
+ \setcounter{definition}{0}
+}
+
+%% --------------------------------------------------------------------------
+%% Enter own definitions (such as \newcommands and custom environments) here.
+%% Please try to avoid using "\def" or "\renewcommand" as they may cause
+%% interference among contributions of the authors.
+
+%%% Choudhury
+\newcommand{\Res}{\mbox{$\mathtt{Res}$}} 
+\newcommand{\CDCL}{\mbox{$\mathtt{CDCL}$}} 
+\newcommand{\QCDCL}{\mbox{$\mathtt{QCDCL}$}}
+\newcommand{\QRes}{\mbox{$\mathtt{Q}$-$\Res$}} %Q-Res proof system
+\newcommand{\QURes}{\mbox{$\mathtt{QU}$-$\Res$}} %QU-Res proof system
+\newcommand{\LDQRes}{\mbox{$\mathtt{LDQ}$-$\Res$}} %LDQ-Res proof system
+\newcommand{\DQCDCLDp}[2]{\mbox{${#1}+\QCDCL(#2)$}}
+
+
+
+% Itsykson
+\newcommand{\resoplus}{\mathrm{Res}(\oplus)}
+\newcommand{\BPHP}{\mathrm{BPHP}}
+
+%%% Jerabek
+\newcommand\p[1]{\langle#1\rangle}
+\newcommand\sset{\subseteq}
+\newcommand\langor{\mathcal L_{\mathrm{OR}}}
+\newcommand\langp{\langor\cup\{P_2\}}
+\newcommand\lange{\langor\cup\{2^x\}}
+\newcommand\model{\vDash}
+\newcommand\N{\mathbb N}
+\newcommand\sM{\mathfrak M}
+\newcommand\thry[1]{\mathsf{#1}}
+\newcommand\io{\thry{IOpen}}
+\newcommand\teip{\thry{TEIP}}
+\newcommand\teipp{\teip_{\!P_2}}
+\newcommand\teipe{\teip_{2^x}}
+\newcommand\powg{\mathrm{PowG}}
+\newcommand\Th{\mathrm{Th}}
+\newcommand\pwin{\mathrm{PWin}}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Que}[Thm]{Question}
+
+%%% Pudlak
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+
+%%% Toran 
+\newcommand{\peb}{\mathrm {Peb}}
+
+%%% Risse
+\newcommand{\NP}{\textbf{NP}}
+\newcommand{\Pclass}{\textbf{P}}
+\newcommand{\Wclass}{\textbf{W}[1]}
+
+
+\begin{document}
+
+\begin{abstract}
+%% Replace by own abstract, of course :-)
+
+\noindent
+Invariants of topological spaces of dimension three play a major role
+in many areas, in particular \dots
+\end{abstract}
+
+\maketitle
+
+\begin{introduction}
+%% Feel free to begin with your own wording, of course :-)
+
+Left:
+\begin{itemize}
+  \item Noah Fleming 
+  \item Susanna de Rezende
+  \item Robert Robere 
+  \item Pravesh Kothari 
+  \item Jakob Nordstr\"{o}m
+  \item Martin Grohe 
+  \item Madhur Tulsiani
+  \item Grigoriy Blekhermann
+  \item Nicola Galesi
+  \item Kaspar Kasche
+\end{itemize}
+
+
+\noindent
+The workshop \emph{Invariants of topological spaces of dimension three},
+organized by Malin Muster (M\"unchen) and Jordan J. Smith (New York)
+was well attended with over 30 participants with broad geographic
+representation from all continents. This workshop was a nice blend of
+researchers with various backgrounds \dots
+
+%% Acknowledgement for funding institutions of the MFO
+%% Names of Simons Visiting Professors will be inserted by the MFO
+\medskip\noindent
+{\em Acknowledgement:} The MFO and the workshop organizers would like to thank
+ the National Science Foundation for supporting the participation of junior
+ researchers in the workshop by the grant DMS-2230648, ``US Junior Oberwolfach Fellows".
+ Moreover, the MFO and the workshop organizers would like to thank the Simons Foundation
+ for supporting NAME(S) in the ``Simons Visiting Professors" program at the MFO.
+\end{introduction}
+
+
+
+\tableofcontents
+
+\begin{report}
+
+%% --------------------------------------------------------------------------
+%% Please use the environment "talk" for each abstract.
+%% It has three obligatory and one optional argument. The syntax is:
+%% -----------------------
+%% \begin{talk}[coauthors]{Firstname-of-speaker Lastname-of-speaker}{Title of the talk}{Author Sorting Index}
+%%      .....
+%% \end{talk}
+%% -----------------------
+%% The names of coauthors will appear in form of "(joint work with ...)"
+%%
+%% The Author Sorting Index should be given as the last and first name of the speaker,
+%% separated by a comma. If for example the name of the speaker is "Jordan Smith", then
+%% the correct Author Sorting Index is "Smith, Jordan".
+%% Any special characters (like accents, German umlaute, etc.) should be replaced by
+%% their "non-special" version, eg replace \"a by a, \'a by a, etc.
+%%
+%% Please use the standard thebibliography environment to include
+%% your references, and try to use labels for the bibitems, which
+%% are uniquely assigned to you in order to avoid conflicts with other authors.
+%% -------------------------------------------------------------------------------
+
+% \begin{talk}[Alex Average, Billie N.E. Xample]{Jordan Smith}
+% {Computing certain invariants of topological spaces of dimension three}
+% {Smith, Jordan}
+
+% \noindent
+% The computation of ...
+
+% \begin{thebibliography}{99}
+
+% \bibitem{JS_AA90}
+% A.~Average, \textit{Computing certain invariants of topological
+% spaces of dimension three}, Topology \textbf{32} (1990), 100--120.
+
+% \bibitem{JS_BX90a}
+% B.~Xample, \textit{Computing other invariants of topological spaces
+% of dimension three}, Topology \textbf{32} (1990), 120--140.
+
+% %% ...
+
+% \end{thebibliography}
+
+% \end{talk}
+
+% %% -------------------------------------------------------------------------------
+
+\begin{talk}[Maria Luisa Bonet and Jordi Levy]{Ilario Bonacina}
+  {Proof Systems for MaxSAT}
+  {Bonacina, Ilario}
+  
+  \noindent
+  \emph{MaxSAT} is the problem of finding an assignment satisfying the maximum number of clauses in a CNF formula. Proof systems for MaxSAT are formal systems that can be used to certify the optimum value of a MaxSAT instance. The interest in studying them arises naturally from practical concerns related to SAT- and MaxSAT-solvers,  although some of the systems for MaxSAT are also studied for theoretical motivations, for instance due to connections with TFNP classes, see for instance \cite{Bonacina-TFNP}. 
+One relevant proof system for MaxSAT is \emph{MaxSAT-Resolution} \cite{Bonacina-Larrosa,Bonacina-BLM.07} which proves a lower bound $s$ on the minimum number of falsified clauses in a set of clauses $F$ in the following way: The proof is a sequence of multisets of clauses $\Gamma_0,\dots,\Gamma_\ell$ such that (1) $\Gamma_0=F$, (2) $\Gamma_\ell$ contains at least $s$ copies of the empty clause $\bot$, and (3) $\Gamma_{i+1}$ is obtained from $\Gamma_i$ one of the following two substitution rules:
+\[
+\frac{C\lor x\quad C\lor \lnot x}{C}\qquad\qquad \frac{C}{C\lor x\quad C\lor \lnot x}\ ,
+\]
+\\[.1em]
+where $C$ are clauses and $x$ is a variable. The clauses in a MaxSAT-Resolution proof can be thought as being \emph{weighted clauses} with weight $1$. 
+
+In this talk we survey some of the consequences of considering the natural generalization of MaxSAT-Resolution to weighted clauses using weights in $\{\pm 1\}$, or natural/integer weights encoded in binary. 
+When negative weights are allowed the soundness of the systems is not automatically enforced and extra conditions on $\Gamma_\ell$ are needed. 
+Varying those extra conditions and the weights allowed in the proofs, we have systems of different strength.
+For instance, (semi-)algebraic static proof systems such as Nullstellensatz (over $\mathbb Z$) and Sherali-Adams can be described naturally in this language \cite{Bonacina-BL.20, Bonacina-BBL.24}.
+This can be used, for instance, to show how natural combinatorial principles capture the strength of Nullstellensatz (over $\mathbb Z$) and Sherali-Adams, with unary and binary coefficients  \cite{Bonacina-BL.22}.
+
+In \cite{Bonacina-BBL.23} we showed a similar approach to construct proof systems for MaxSAT based not on weighted clauses but on weighted polynomials. Starting from Polynomial Calculus over a finite field we showed how to adapt its inference rules to have a sound and complete system for MaxSAT. As in the case of weighted clauses, restricting the weights allowed also restricts the strength of the resulting MaxSAT system. In presence of integer weights, Polynomial Calculus for MaxSAT gives a natural proof system strictly stronger than Sherali-Adams while allowing the modular reasoning enabled by extending Polynomial Calculus over $\mathbb F_q$.
+  
+  \begin{thebibliography}{99}
+  
+    \bibitem{Bonacina-BLM.07}
+    M. L.~Bonet, J.~Levy, F.~Many{\`{a}}, \textit{Resolution for Max-{SAT}},
+    Artif. Intell. (2007)
+      \textbf{171}, 606--618.
+      
+      \bibitem{Bonacina-BBL.23}
+      I.~Bonacina, M. L.~Bonet, J.~Levy, \textit{Polynomial Calculus for MaxSAT}, In: Theory and Applications of Satisfiability Testing (SAT 2023), pp. 5:1--5:18 (2023)
+      
+      \bibitem{Bonacina-BBL.24}
+      I.~Bonacina, M. L.~Bonet, J.~Levy, \textit{Weighted, circular and semi-algebraic proofs}, JAIR (2024) \textbf{79}, 447--482
+      
+      \bibitem{Bonacina-BL.22}
+      I.~Bonacina, M. L.~Bonet, \textit{On the strength of Shertali-Adams and Nullstellensatz as propositional proof systems}, In: Symposium on Logic in Computer Science (LICS 2022), pp. 25:1--25:12 (2022)
+      
+        \bibitem{Bonacina-BL.20}
+        M. L.~Bonet, J.~Levy, \textit{Equivalence Between Systems Stronger Than Resolution}, In: Theory and Applications of Satisfiability Testing (SAT 2020), pp. 166--181 (2020)
+        
+            \bibitem{Bonacina-TFNP}
+        M.~G\"o\"os, A.~Hollender, S.~Jain, G.~Maystre, W.~Pires, R.~Robere, R.~Tao,
+        \textit{Separations in Proof Complexity and TFNP}, In: Foundations of Computer Science (FOCS 2022), pp. 1150--1161 (2022)
+        
+        \bibitem{Bonacina-Larrosa}
+        J.~Larrosa, F.~Heras, \textit{Resolution in Max-SAT and its relation to local consistency in weighted CSPs}, In: Int. Joint Conf. on Artificial Intelligence  (IJCAI 2005), pp. 193--198 (2005)
+    
+    
+    %% ...
+  
+  \end{thebibliography}
+  
+  \end{talk}
+  
+
+%% -------------------------------------------------------------------------------
+
+\begin{talk}{Igor C. Oliveira}
+    {Meta-Mathematics of Complexity Theory}
+    {C. Oliveira, Igor}
+    
+    \noindent
+    Despite significant efforts from computer scientists and mathematicians, the P vs. NP problem and other fundamental questions about the complexity of computations seem to remain out of reach for existing techniques. The difficulty of making progress on such problems has motivated a number of researchers to investigate the logical foundations of computational complexity. Over the last few decades, several works at the intersection of logic and complexity theory showed that certain fragments of Peano Arithmetic collectively known as Bounded Arithmetic (see, e.g.,~\cite{Krajicek-book, cook_nguyen_2010}) can formalize a large fraction of results from algorithms and complexity (e.g., the PCP Theorem \cite{DBLP:journals/corr/Pich14} and complexity lower bounds against restricted classes of Boolean circuits \cite{DBLP:journals/apal/MullerP20}). It is natural to consider if the same theories can settle longstanding problems about the inherent difficulty of computations. 
+
+In the first part of this talk, we survey a few recent results \cite{KO17, BKO20, DBLP:journals/aml/BydzovskyM20, CKKO21, DBLP:conf/stoc/PichS21, DBLP:conf/stoc/AtseriasBM23, LO23} on the unprovability of statements of interest to complexity theory in theories of Bounded Arithmetic and highlight some open problems. In the second part of the talk, we will cover new results on the reverse mathematics of complexity lower bounds \cite{CLO24}, a research direction which seeks to determine which axioms are necessary to prove certain results. We explore reversals in the setting of bounded arithmetic, with Cook's theory $\mathsf{PV}_1$ as the base theory, and show that several natural lower bound statements about communication complexity, error correcting codes, and Turing machines are equivalent to widely investigated combinatorial principles such as the weak pigeonhole principle for polynomial-time functions and its variants. As a consequence, complexity lower bounds can be formally seen as fundamental mathematical axioms with far-reaching implications. Time permitting, we will also present several implications of these results: 
+
+\begin{itemize}
+    \item Under a plausible cryptographic assumption, the classical single-tape Turing machine $\Omega(n^2)$-time lower bound for Palindrome is unprovable in Jerábek’s theory $\mathsf{APC}_1$.
+    \item While $\mathsf{APC}_1$ proves one-way communication lower bounds for Set Disjointness, it does not prove one-way communication lower bounds for Equality, under a plausible cryptographic assumption.
+    \item An amplification phenomenon connected to the (un)provability of some lower bounds, under which a quantitatively weak $n^{1 + \varepsilon}$ lower bound is provable if and only if a stronger (and often tight) $n^c$ lower bound is provable.
+    \item Feasibly definable randomized algorithms can be feasibly defined deterministically ($\mathsf{APC}_1$ is $\forall\Sigma^b_1$-conservative over $\mathsf{PV}_1$) if and only if one-way communication complexity lower bound for Set Disjointness are provable in $\mathsf{PV}_1$.
+\end{itemize}
+    
+    \begin{thebibliography}{99}
+    
+        \bibitem{DBLP:conf/stoc/AtseriasBM23}
+        Albert Atserias, Sam Buss, and Moritz M{\"{u}}ller.
+        \newblock On the consistency of circuit lower bounds for non-deterministic
+          time.
+        \newblock In {\em Symposium on Theory of Computing \emph{(STOC)}}, pages
+          1257--1270, 2023.
+        
+        \bibitem{BKO20}
+        Jan Bydzovsky, Jan Kraj{\'{i}}{\v{c}}ek, and Igor~C. Oliveira.
+        \newblock {Consistency of circuit lower bounds with bounded theories}.
+        \newblock {\em {Logical Methods in Computer Science}}, 16(2), 2020.
+        
+        \bibitem{DBLP:journals/aml/BydzovskyM20}
+        Jan Bydzovsky and Moritz M{\"{u}}ller.
+        \newblock Polynomial time ultrapowers and the consistency of circuit lower
+          bounds.
+        \newblock {\em Arch. Math. Log.}, 59(1-2):127--147, 2020.
+        
+        \bibitem{CKKO21}
+        Marco Carmosino, Valentine Kabanets, Antonina Kolokolova, and Igor~C. Oliveira.
+        \newblock Learn-uniform circuit lower bounds and provability in bounded
+          arithmetic.
+        \newblock In {\em Symposium on Foundations of Computer Science \emph{(FOCS)}},
+          2021.
+        
+        \bibitem{CLO24}
+        Lijie Chen, Jiatu Li, and Igor~C. Oliveira.
+        \newblock Reverse mathematics of complexity lower bounds.
+        \newblock {\em Electronic Colloquium on Computational Complexity
+          \emph{(ECCC)}}, TR:24:060, 2024.
+        
+        \bibitem{cook_nguyen_2010}
+        Stephen~A. Cook and Phuong Nguyen.
+        \newblock {\em Logical Foundations of Proof Complexity}.
+        \newblock Cambridge University Press, 2010.
+        
+        \bibitem{Krajicek-book}
+        Jan Kraj{\'{i}}{\v{c}}ek.
+        \newblock {\em Bounded Arithmetic, Propositional Logic, and Complexity Theory}.
+        \newblock Encyclopedia of Mathematics and its Applications. Cambridge
+          University Press, 1995.
+        
+        \bibitem{KO17}
+        Jan Kraj{\'{i}}{\v{c}}ek and Igor~C. Oliveira.
+        \newblock {Unprovability of circuit upper bounds in Cook's theory PV}.
+        \newblock {\em {Logical Methods in Computer Science}}, 13(1), 2017.
+        
+        \bibitem{LO23}
+        Jiatu Li and Igor~C. Oliveira.
+        \newblock Unprovability of strong complexity lower bounds in bounded
+          arithmetic.
+        \newblock In {\em Symposium on Theory of Computing \emph{(STOC)}}, 2023.
+        
+        \bibitem{DBLP:journals/apal/MullerP20}
+        Moritz M{\"{u}}ller and J{\'{a}}n Pich.
+        \newblock Feasibly constructive proofs of succinct weak circuit lower bounds.
+        \newblock {\em Annals of Pure and Applied Logic}, 171(2), 2020.
+        
+        \bibitem{DBLP:journals/corr/Pich14}
+        J{\'{a}}n Pich.
+        \newblock Logical strength of complexity theory and a formalization of the
+          {PCP} theorem in bounded arithmetic.
+        \newblock {\em Logical Methods in Computer Science}, 11(2), 2015.
+        
+        \bibitem{DBLP:conf/stoc/PichS21}
+        J{\'{a}}n Pich and Rahul Santhanam.
+        \newblock Strong co-nondeterministic lower bounds for {NP} cannot be proved
+          feasibly.
+        \newblock In {\em Symposium on Theory of Computing \emph{(STOC)}}, pages
+          223--233, 2021.
+    %% ...
+    
+    \end{thebibliography}
+    
+    \end{talk}
+
+    
+% ----------------
+
+    \begin{talk}[Valentine Kabanets, Antonina Kolokolova and Igor C. Oliveira]{Marco Carmosino}
+      {Provability of Circuit Size Hierarchies}
+      {Carmosino, Marco}
+      
+      \noindent
+      A \emph{gate} is an atomic device that computes a single Boolean function.  A \emph{circuit} is an arrangement of wires between gates.  Each circuit computes a particular Boolean function on a fixed number of input bits by propagating values along the wires.  To measure the circuit complexity of a function $f$, we fix a set of gates $\mathcal{B}$ --- for example, two-bit $\{\mathsf{AND}, \textsf{OR}\}$ and \textsf{NOT} gates --- and count the minimum number of $\mathcal{B}$-gates required to compute $f$.
+      
+      Despite decades of study, basic questions about circuit complexity remain open.  Straightforward counting arguments show that most Boolean function on $n$ bits require huge circuits: roughly $2^n/n$ gates \cite{Sha49}.  Yet, explicit functions that require even super-linear circuit size are unknown.  The best known lower bounds for circuits over $\mathcal{B}$ are $5n - o(n)$, but the explicit functions identified  can be computed using only $5n + o(n)$  gates \cite{IwamaM02, AmanoT11}.  So, new ideas are required for explicit circuit lower bounds in the general\footnote{Super-polynomial lower bounds are indeed known for constant-depth circuit classes and under certain other structural restrictions.} setting.
+      
+      Motivated by the apparent difficulty of making progress, some researchers are exploring mathematical logic to understand why some questions about circuits resist all known proof techniques.  A weak fragment of Peano Arithmetic called $\mathsf{PV}_1$ (for ``Polynomially Verifiable'') captures ``efficient'' reasoning, by limiting the induction principle to work only on formulas quantifying ``small'' numbers.  Even so, $\mathsf{PV}_1$ formalizes many theorems about computational complexity --- including the Cook-Levin and PCP theorems --- which seem to require intricate proofs \cite{Pich14}.
+      
+      The immediate meta-mathematical question is: how much circuit complexity can be accomplished inside $\mathsf{PV}_1$?  In particular, the Circuit Size Hierarchy (CSH) is a classical result: larger circuits compute strictly more functions.  CSH is proved by straightforward counting and encoding of Boolean functions.  But a ``constructive'' proof of CSH remains unknown, and the existing arguments do not produce explicit hard functions.  Formally, we ask: is CSH a theorem of $\mathsf{PV}_1$ ?
+      
+      This talk shared preliminary evidence that it is difficult to prove CSH in $\mathsf{PV}_1$.  If CSH is a theorem of $\mathsf{PV}_1$, then there are super-linear circuit lower bounds for a function computable in $\mathsf{PTIME}$ --- a breakthrough. This reduces the problem of proving super-linear citcuit lower bounds to a question about the existence of feasible proofs.
+      
+      However, our work remains in progress because it seems natural to ask for a better relationship between $\mathsf{PV}_1$-provability of CSH and breakthrough circuit lower bounds.  Suppose $\mathsf{PV}_1$ proves that, for each $k \in \mathbb{N}$, circuits of size $n^{5k}$ compute functions that are hard for circuits of size $n^k$.  We hope to obtain from this assumption, for each $k$, a language $\mathcal{H}_k \in \mathsf{PTIME}$ that requires $n^{k + \varepsilon}$ circuit size, with $\varepsilon >0$.  Intuitively, despite our preliminary result, it remains open to ``extract all the hardness'' from a $\mathsf{PV}_1$-proof of CSH.
+      
+      \begin{thebibliography}{99}
+      
+      \bibitem{AmanoT11}
+      K.~Amano and J.~Tarui, \textit{A well-mixed function with circuit complexity $5n$: Tightness of the Lachish-Raz-type bounds}, Theor. Comput. Sci., \textbf{412} no.18 (2011), 1646--1651.
+      
+      \bibitem{IwamaM02}
+      K.~Iwama and H.~Morizumi, \textit{An Explicit Lower Bound of $5n - o(n)$ for Boolean Circuits}, MFCS Lecture Notes in Computer Science \textbf{2420} (2002), 353--364.
+      
+      \bibitem{Pich14}
+      J.~Pich, \textit{Logical strength of complexity theory and a formalization of the {PCP} theorem in bounded arithmetic}, Log. Methods Comput. Sci., \textbf{11} no. 2, (2015).
+      
+      \bibitem{Sha49}
+      C.~E.~Shannon, \textit{The synthesis of two-terminal switching circuits}, Bell Systems Technical Journal \textbf{28} (1949), 59--98.
+      
+      
+      \end{thebibliography}
+      
+      \end{talk}
+%---------------------
+
+
+\begin{talk}[Susanna F. de Rezende, Jakob Nordstr\"{o}m, Shuo Pang, Kilian Risse]{Jonas Conneryd}
+  {Graph Colouring Is Hard on Average for Polynomial Calculus}
+  {Conneryd, Jonas}
+\noindent
+  Determining the \emph{chromatic number} of a graph~$G$, i.e.,
+how many colours are needed for the vertices of~$G$ if no two vertices
+connected by an edge should have the same colour,
+is one of the
+original
+21~problems shown $\mathsf{NP}$-complete in the seminal work of
+Karp~\cite{Karp72Reducibility}.
+This
+\emph{graph colouring problem},
+as it is also referred to, has been
+extensively studied since then,
+but there are still major gaps in our understanding.
+
+It is widely believed that any algorithm
+that colours graphs optimally
+has to run
+in exponential time in the worst case, and the currently
+fastest algorithm for $3$\nobreakdash-colouring
+has time complexity $O(1.3289^{n})$
+\cite{Beigel05ColoringFixed}. To understand graph colouring from 
+the viewpoint of computational complexity,
+it is natural to investigate bounded models of computation
+that are strong enough to describe the reasoning 
+performed
+by state-of-the-art 
+algorithms for graph colouring and to prove unconditional lower bounds
+that hold in 
+these models. 
+
+We investigate the hardness of graph colouring for algorithms based on algebraic reasoning, where the idea is to encode the graph colouring problem as a set of polynomials whose common roots correspond to proper colourings of the graph. The goal is then to either find those roots or prove that they do not exist. This leads us to the \emph{polynomial calculus} proof system \cite{CEI96Groebner, ABRW02SpaceComplexity}, whose reasoning captures, for instance, most implementations of the Gr\"{o}bner basis algorithm as well as an algorithm introduced in a well-known sequence of works \cite{DLMM08Hilbert,DLMO09ExpressingCombinatorial,DLMM11ComputingInfeasibility,DMPRRSSS15GraphColouring} with surprisingly strong practical performance. 
+
+It was previously known \cite{LN17GraphColouring,  AO19ProofCplx} that polynomial calculus requires linear degree, and hence exponential size via the size-degree relation \cite{IPS99Lower}, to solve graph colouring in the worst case. However, the hard instances in those papers come from reductions to other problems, so it was consistent with our knowledge that graph colouring is in fact easy for polynomial calculus except in some rather artificial special cases. Stronger evidence for the hardness of graph colouring would be an \emph{average-case} lower bound, just as was established for resolution by Beame, Culberson, Mitchell, and Moore \cite{BCCM05RandomGraph}. 
+
+In this work we establish optimal,
+linear, degree lower bounds
+and exponential size lower bounds
+for polynomial calculus proofs of non-colourability of sparse random graphs. Our results hold over any field and for both Erd\H{o}s-R\'{e}nyi random graphs and random regular graphs.  
+
+An abridged version of this work appeared in the \emph{Proceedings of
+the 64th Annual IEEE Symposium on Foundations of Computer Science
+(FOCS '23)} \cite{CdRNPR23GraphColouring}.
+
+
+\begin{thebibliography}{99}
+  \bibitem{ABRW02SpaceComplexity}
+Michael Alekhnovich, Eli {Ben-Sasson}, Alexander~A. Razborov, and Avi
+  Wigderson.
+\newblock Space complexity in propositional calculus.
+\newblock {\em SIAM Journal on Computing}, 31(4):1184\nobreakdash--1211, April
+  2002.
+\newblock Preliminary version in \emph{STOC~'00}.
+
+\bibitem{AO19ProofCplx}
+Albert Atserias and Joanna Ochremiak.
+\newblock Proof complexity meets algebra.
+\newblock {\em ACM Transactions on Computational Logic},
+  20:1:1\nobreakdash--1:46, February 2019.
+\newblock Preliminary version in \emph{ICALP~'17}.
+
+\bibitem{BCCM05RandomGraph}
+Paul Beame, Joseph~C. Culberson, David~G. Mitchell, and Cristopher Moore.
+\newblock The resolution complexity of random graph
+  $k$\nobreakdash-colorability.
+\newblock {\em Discrete Applied Mathematics},
+  153(1\nobreakdash-3):25\nobreakdash--47, December 2005.
+
+\bibitem{Beigel05ColoringFixed}
+Richard Beigel and David Eppstein.
+\newblock $3$\nobreakdash-coloring in time ${O}({1.3289}^n)$.
+\newblock {\em Journal of Algorithms}, 54(2):168\nobreakdash--204, February
+  2005.
+
+\bibitem{CdRNPR23GraphColouring}
+  Jonas Conneryd, Susanna~F. de~Rezende, Jakob Nordstr\"{o}m, Shuo Pang, and
+    Kilian Risse.
+\newblock Graph colouring is hard on average for polynomial calculus and
+    {N}ullstellensatz.
+\newblock In {\em Proceedings of the 64th Annual {IEEE} Symposium on
+    Foundations of Computer Science ({FOCS}~'23)}, pages 1\nobreakdash--11,
+    November 2023.
+  
+
+\bibitem{CEI96Groebner}
+Matthew Clegg, Jeffery Edmonds, and Russell Impagliazzo.
+\newblock Using the {Groebner} basis algorithm to find proofs of
+  unsatisfiability.
+\newblock In {\em Proceedings of the 28th Annual {ACM} Symposium on Theory of
+  Computing ({STOC}~'96)}, pages 174\nobreakdash--183, May 1996.
+
+\bibitem{DMPRRSSS15GraphColouring}
+Jes{\'u}s~A. {De Loera}, Susan Margulies, Michael Pernpeintner, Eric Riedl,
+  David Rolnick, Gwen Spencer, Despina Stasi, and Jon Swenson.
+\newblock Graph-coloring ideals: {N}ullstellensatz certificates, {G}r{\"o}bner
+  bases for chordal graphs, and hardness of {G}r{\"o}bner bases.
+\newblock In {\em Proceedings of the 40th International Symposium on Symbolic
+  and Algebraic Computation (ISSAC~'15)}, pages 133\nobreakdash--140, July
+  2015.
+
+\bibitem{DLMM08Hilbert}
+Jesús~A. {De Loera}, Jon Lee, Peter~N. Malkin, and Susan Margulies.
+\newblock {H}ilbert's {N}ullstellensatz and an algorithm for proving
+  combinatorial infeasibility.
+\newblock In {\em Proceedings of the 21st International Symposium on Symbolic
+  and Algebraic Computation ({ISSAC}~'08)}, pages 197\nobreakdash--206, July
+  2008.
+
+\bibitem{DLMM11ComputingInfeasibility}
+Jesús~A. {De Loera}, Jon Lee, Peter~N. Malkin, and Susan Margulies.
+\newblock Computing infeasibility certificates for combinatorial problems
+  through {H}ilbert's {N}ullstellensatz.
+\newblock {\em Journal of Symbolic Computation}, 46(11):1260\nobreakdash--1283,
+  November 2011.
+
+\bibitem{DLMO09ExpressingCombinatorial}
+Jesús~A. {De Loera}, Jon Lee, Susan Margulies, and Shmuel Onn.
+\newblock Expressing combinatorial problems by systems of polynomial equations
+  and {H}ilbert's {N}ullstellensatz.
+\newblock {\em Combinatorics, Probability and Computing},
+  18(4):551\nobreakdash--582, July 2009.
+
+\bibitem{IPS99Lower}
+Russell Impagliazzo, Pavel Pudl{\'a}k, and Ji{\v{r}}{\'i} Sgall.
+\newblock Lower bounds for the polynomial calculus and the {G}r{\"o}bner basis
+  algorithm.
+\newblock {\em Computational Complexity}, 8(2):127\nobreakdash--144, 1999.
+
+\bibitem{Karp72Reducibility}
+Richard~M. Karp.
+\newblock Reducibility among combinatorial problems.
+\newblock In {\em Complexity of Computer Computations}, The IBM Research
+  Symposia Series, pages 85\nobreakdash--103. Springer, 1972.
+
+\bibitem{LN17GraphColouring}
+Massimo Lauria and Jakob Nordström.
+\newblock Graph colouring is hard for algorithms based on {H}ilbert's
+  {N}ullstellensatz and {G}röbner bases.
+\newblock In {\em Proceedings of the 32nd Annual Computational Complexity
+  Conference ({CCC}~'17)}, volume~79 of {\em Leibniz International Proceedings
+  in Informatics (LIPIcs)}, pages 2:1\nobreakdash--2:20, July 2017.
+
+\end{thebibliography}
+  
+\end{talk}
+
+
+
+\begin{talk}[Meena Mahajan]{Abhimanyu Choudhury}
+  {Dependency Schemes in CDCL based QBF Solving: A proof theoretic study}
+  {Choudhury, Abhimanyu}
+  
+  \noindent
+  
+  
+  With the success of propositional SAT solvers, there are many ambitious attempts now to tackle more expressive/succinct formalisms.  In particular, for
+  the PSPACE-complete problem of deciding the truth of Quantified Boolean Formulas (QBF), there are now many solvers, as well as a rich (and still growing) theory about the underlying formal proof systems. Designing solvers for QBFs is a useful enterprise because many industrial applications seem to lend themselves more naturally to expressions involving both existential and universal quantifiers; see for instance \cite{SBPS-ICTAI19,BJLS21}. 
+  The proof system Resolution can be lifted to the QBF setting in many ways. The ``\CDCL\ way'' is to add a universal reduction rule, giving rise to the system \QRes\ and the more general \QURes. Allowing contradictory literals to be merged under certain conditions gives rise to the system long-distance Q-Resolution \LDQRes.
+  Another ``\CDCL" way is to lift the \CDCL\ algorithm itself to a QCDCL algorithm: decide values of variables, usually respecting the order of quantified alternation, propagate unit constraints, interpreting unit modulo universal reductions, repeat until a conflict is reached, learn a new clause, backtrack and continue.
+  For false formulas, the learning process yields a long-distance Q-resolution refutation.  In \cite{BB-LMCS23}, a formal proof
+  system \QCDCL\ was abstracted out of the QCDCL algorithm.
+  
+  
+  A heuristic that has been found to be useful in many QBF solvers, and has been formalised in proof systems, is to eliminate easily-detectable spurious dependencies. In a prenex QBF, a variable "depends" on the variables preceding it in the quantifier prefix; where "depends" means that a Herbrand/Skolem function for the variable is a function of the preceding variables. However, a Herbrandfunction or countermodel may not really need to know the values of all preceding variables. A dependency scheme filters out as many of such
+  unnecessary dependencies as it can detect, producing what is in effect a Dependency QBF, DQBF. Although DQBF is a significantly richer formalism that is known to be NEXP-complete (see \cite{APR-JCMA01,SW-SAT18}), these heuristics are not aiming to solve DQBFs in general. Rather, they algorithmically detect spurious dependencies and disregard them as the algorithm proceeds. 
+  
+  Now, the universal reduction rule in the proof systems (say in \QRes, \LDQRes) can be applied in more settings because there are fewer dependencies, and this can shorten refutations
+  significantly. See for instance \cite{BB-SAT17,SS-TCS16,PSS-JAR19}. Note that the use of a dependency scheme must be proven to be sound and complete, and this in itself is often quite involved. The  notion of a dependency scheme being ``normal'' was introduced in \cite{PSS-JAR19}, where it is shown that adding any normal dependency scheme to \LDQRes\ preserves soundness and completeness. 
+  
+  We examine how the usage of a dependency scheme can affect proof systems underlying the QCDCL algorithm. 
+  Specifically, we focus on the proof system \QCDCL\ , underlying most QCDCL-based solvers, and on the dependency scheme $\mathtt{D^{rrs}}$ which has been studied in the
+  context of \QRes\ and \LDQRes, see \cite{SS-TCS16,BB-SAT17,PSS-JAR19}.
+  We note that the proof system \QCDCL\ can be made aware of dependency schemes in more than one way. We identify two natural ways: (1)~use a dependency scheme $\mathtt{D}$ to preprocess the formula, performing reductions in the initial clauses whenever permitted by the scheme, and (2)~use a dependency scheme $\mathtt{D}$ in the QCDCL algorithm itself, in enabling unit propagations and in learning clauses.  Denoting the first way as $\mathtt{D} + \QCDCL$ and the second as $\QCDCL(\mathtt{D})$, and noting that we could even use different dependency schemes in both these ways, we obtain the system $\DQCDCLDp{\mathtt{D}_1}{\mathtt{D}_2}$. When $\mathtt{D}_1$ and $\mathtt{D}_2$ are both the trivial dependency scheme $mathtt{D^{trv}}$ inherited from the linear order of the quantifier prefix, this system is exactly \QCDCL.
+  
+  Our contributions are as follows:
+  \begin{enumerate}
+    \item 
+    We formalise the proof system \DQCDCLDp{\mathtt{D}'}{\mathtt{D}} for dependency schemes $\mathtt{D}, \mathtt{D}'$,
+      and note that whenever $\mathtt{D}',\mathtt{D}$ are  normal schemes, \DQCDCLDp{\mathtt{D}'}{\mathtt{D}}\ is sound
+    and complete .
+    \item  For $\mathtt{D},\mathtt{D}'\in\{\mathtt{D^{trv}},\mathtt{D^{rrs}}\}$, we study the four systems
+    \DQCDCLDp{\mathtt{D}'}{\mathtt{D}}. As observed above, one of them is \QCDCL\ itself, while the others are new systems.
+    We compare these systems with each other and show that they are all pairwise incomparable We also show that each of them is incomparable with each of the systems $\QCDCL^{\mathtt{LEV-ORD}}_{\mathtt{NO-RED}}$ \QRes,  $\mathtt{Q(D^{rrs})Res}$ and \QURes.
+    
+  \end{enumerate}
+  In other words, making QCDCL algorithms dependency-aware is a
+  ``mixed bag'': in some situations this shortens runs while in others
+  it is disadvantageous.  
+  
+  
+  \begin{thebibliography}{99}
+  
+  \bibitem{SBPS-ICTAI19}
+  Shukla, A., Biere, A., Pulina, L. and Seidl, M., 2019, November. A survey on applications of quantified Boolean formulas. In 2019 IEEE 31st International Conference on Tools with Artificial Intelligence (ICTAI) (pp. 78-84). IEEE.
+  
+  \bibitem{BJLS21}
+  Beyersdorff, O., Janota, M., Lonsing, F. and Seidl, M., 2021. Quantified boolean formulas. In Handbook of Satisfiability (pp. 1177-1221). IOS Press.
+  
+  \bibitem{BB-LMCS23}
+  Beyersdorff, O. and Böhm, B., 2023. Understanding the relative strength of QBF CDCL solvers and QBF resolution. Logical Methods in Computer Science, 19.
+  
+  \bibitem{APR-JCMA01}
+  Peterson, G., Reif, J. and Azhar, S., 2001. Lower bounds for multiplayer noncooperative games of incomplete information. Computers \& Mathematics with Applications, 41(7-8), pp.957-992.
+  
+  \bibitem{SW-SAT18}
+  Scholl, C. and Wimmer, R., 2018, June. Dependency quantified Boolean formulas: An overview of solution methods and applications. In International Conference on Theory and Applications of Satisfiability Testing (pp. 3-16). Cham: Springer International Publishing.
+  
+  \bibitem{SS-TCS16}
+  Slivovsky, F. and Szeider, S., 2016. Soundness of Q-resolution with dependency schemes. Theoretical Computer Science, 612, pp.83-101
+  
+  \bibitem{BB-SAT17}
+  Blinkhorn, J. and Beyersdorff, O., 2017. Shortening QBF proofs with dependency schemes. In Theory and Applications of Satisfiability Testing–SAT 2017: 20th International Conference, Melbourne, VIC, Australia, August 28–September 1, 2017, Proceedings 20 (pp. 263-280). Springer International Publishing.
+  
+  \bibitem{PSS-JAR19}
+  Peitl, T., Slivovsky, F. and Szeider, S., 2019. Long-distance Q-resolution with dependency schemes. Journal of Automated Reasoning, 63, pp.127-155.
+  
+  %% ...
+  
+  \end{thebibliography}
+  
+  \end{talk}
+    
+% ---------------------------------
+\begin{talk}[Ilan Newman, Artur Riazanov, Dmitry Sokolov]{Mika G\"o\"os}
+  {Hardness Condensation by Restriction}
+  {Goos, Mika}
+  
+  \noindent
+  \emph{Hardness condensation} is a lower-bound technique in boolean function complexity, where one transforms an $n$-variate problem $f$ of complexity $k\ll n$ into a related problem $\smash{f'}$ defined over $\Theta(k)$ variables such that the complexity is preserved at $\Theta(k)$. This approach was first introduced by Buresh-Oppenheim and Santhanam~\cite{BureshOppenheim2006} in the context of circuit complexity. Later, it was put to concrete use in the context of proof complexity by Razborov~\cite{Razborov2016} and then further developed in~\cite{Razborov2017,Razborov2017a,Berkholz2020,Fleming2022}. In these works, the function $f'$ was obtained from $f$ by expander-based function composition.
+  
+  We study hardness condensation by \emph{restriction}, the simplest operation that reduces the number of variables. Our work focuses on two computational measures: query complexity and communication complexity. 
+  
+  Our first result shows that there exists a function with \emph{query complexity} $k$ such that any its restriction that leaves $O(k)$ variables free has query complexity $O(k^{3/4} {\rm poly}(\log k))$. The function that exhibits this is constructed using cheat sheets \cite{Aaronson2016}. 
+  
+  \emph{Randomized communication complexity} is generally non-condensable in a very strong sense: Hambardzumyan,
+  Hatami, and Hatami \cite{Hambardzumyan2022} have shown that there exists a $2^n$-by-$2^n$ matrix with communication complexity $\Theta(n^{0.9})$ such that all its $2^{n/2}$-by-$2^{n/2}$ submatrices have constant communication complexity. 
+  
+  Our second result shows that condensation is possible for a very important function: sink-of-xor. This function was used by Chattopadhyay, Mande, and Sherif \cite{Chattopadhyay2020} to refute log approximate rank conjecture (LARC): they show that $2^{\binom{n}{2}}$-by-$2^{\binom{n}{2}}$ matrix describing sink-of-xor has approximate rank $O(n^4)$ and randomized communication complexity $\Omega(n)$. We show that there exists $2^{O(n)}$-by-$2^{O(n)}$ submatrix of sink-of-xor that retains communication cost $\Omega(n)$. On the other hand, we show that every submatrix of this size has approximate rank at most $O(n^3)$, achieving the stronger negation of LARC conjectured by Chattopadhyay, Garg, and Sherif \cite{Chattopadhyay2021}.
+  
+  The main open question that we leave open is whether the deterministic communication complexity can be condensed by restriction. In a concurrent works Hrubes \cite{Hrubes2024} shows that it can be condensed with a polynomial loss, namely that every $2^n$-by-$2^n$ matrix with deterministic communication complexity $k$ has a $2^{O(\sqrt{k})}$-by-$2^{O(\sqrt{k})}$ submatrix of deterministic communication complexity $\Omega(\sqrt{k})$. Can we show that some polynomial loss is necessary? 
+  
+  
+  \begin{thebibliography}{99}
+  
+  \bibitem{Aaronson2016}
+  Scott Aaronson, Shalev Ben-David, and Robin Kothari, \textit{Separations in query complexity using cheat sheets}, In Proceedings of the 48th Symposium on Teory of Computing (STOC) (2016), 863--876.
+  
+  \bibitem{Berkholz2020}
+  Christoph Berkholz and Jakob Nordstr\"om, \textit{Supercritical space-width trade-offs for resolution.}, SIAM Journal on Computing \textbf{49(1)} (2020) 98--118.
+  
+  \bibitem{BureshOppenheim2006}
+  Joshua Buresh-Oppenheim and Rahul Ranthanam, \textit{Making hard problems harder},  In Proceedings
+  of the 21st Conference on Computational Complexity (CCC) (2006), 73--87.
+  
+  \bibitem{Chattopadhyay2020} Arkadev Chattopadhyay, Nikhil Mande, and Suhail Sherif, \textit{The log-approximate-rank conjecture is false}, Journal of the ACM, \textbf{67(4)} (2020), 1--28.
+  
+  \bibitem{Chattopadhyay2021} Arkadev Chattopadhyay, Ankit Garg, and Suhail Sherif, \textit{Towards stronger counterexamples to the log-approximate-rank conjecture}, In Proceedings of the 41st Conference on Foundations of Software Technology and Theoretical Computer Science (FSTTCS), \textbf{213(13)} (2021), 1--16.
+  
+  \bibitem{Fleming2022}
+  Noah Fleming, Toniann Pitassi, and Robert Robere, \textit{Extremely deep proofs}, In Proceedings of the 13th Innovations in Theoretical Computer Science Conference (ITCS) (2022), 70:1--70:23.
+  
+  \bibitem{Hambardzumyan2022}
+  Lianna Hambardzumyan, Hamed Hatami, and Pooya Hatami, \textit{A counter-example to the probabilistic universal graph conjecture via randomized communication complexity}, Discrete Applied Mathematics \textbf{322} (2022), 117--122.
+  
+  \bibitem{Hrubes2024} Pavel Hrubes, \textit{Hard submatrices for non-negative rank and communication complexity}, Technical report, Electronic Colloquium on Computational Complexity (ECCC), 2024. 
+  
+  \bibitem{Razborov2016}
+  Aleksander Razborov, \textit{A new kind of tradeoffs in propositional proof complexity}, Journal of the ACM \textbf{63(2)} (2016), 1--14.
+  
+  \bibitem{Razborov2017}
+  Aleksander Razborov, \textit{On space and depth in resolution}, Computational Complexity, \textbf{27(3)}, (2017), 511--559.
+  
+  \bibitem{Razborov2017a}
+  Aleksander Razborov, \textit{On the width of semialgebraic proofs and algorithms}, Mathematics of Operations Research, \textbf{42(4)}, (2017), 1106--1134.
+  
+  %% ...
+  
+  \end{thebibliography}
+  
+  \end{talk}
+
+
+  %-------------------------------------------------------------------------------
+  \begin{talk}{Johan H\aa stad}
+    {On small-depth Frege proofs for PHP}
+    {Hastad, Johan}
+    
+    \noindent
+   
+    We study formal proofs for the Pigeon Hole Principle (PHP).
+The PHP states that $m+1$ pigeons can 
+fly to $m$ holes such that no two pigeons fly to the
+same hole.  It has $(m+1)m$ Boolean variables and variable $x_{ij}$
+is true iff pigeon $i$ flies to the hole $j$.
+The axioms say that for each $i$ there is a value
+of $j$ such that $x_{ij}$ is true and for 
+each $j$ there is at most one $i$ such that $x_{ij}$.
+This is clearly a contradiction and the questions
+is whether this can be established by a short
+proof using simple and natural derivation rules
+and where each formula derived is of depth at most
+$d$ in the basis given by $\land$ and $\lor$.
+
+The case of $d=1$ corresponds to resolution and an
+early milestone was obtained by Haken \cite{haken} in 1985
+when he established exponential size lower bounds for
+such a proof.  This was extended
+in a sequence of works \cite{ajtai,bpu92,kpw95,pbi93}
+to prove that polynomial size proofs require depth $d$
+at least $\Omega (\log {\log n})$.
+
+These bounds remained the strongest lower bounds for any
+tautology until Pitassi et al \cite{prst16}
+obtained super-polynomial lower bounds for
+depths up to $o(\sqrt {\log n})$.
+The tautology considered was first studied by Tseitin \cite{tseitin}
+and considers a set linear equations modulo two defined
+by a graph.  The underlying graph for
+\cite{prst16} is an expander.  These results were
+later extended to depth almost logarithmic
+by H{\aa}stad and Risse \cite{jhtseitin,jhkr}
+and in this case the underlying graph is the two-dimensional grid.
+
+We continue this line of research and prove that similar
+bounds apply to the PHP and to make use of previous work we study the
+graph PHP where the underlying graph is an odd size
+two-dimensional grid.
+If one colors this graph as a chess board,  the corners are of the same color and
+let us assume this is white.
+In the graph PHP on the grid, there is a pigeon on each white square and
+it should fly to one of the adjacent black squares
+that define the holes.   
+
+Phrased slightly differently, the PHP on the grid says that
+there is a perfect matching of the odd size grid while
+Tseitin tautology on the same graph states that it is possible to
+assign Boolean values
+to the edges of the grid such that there is an odd number
+of true variables next to any node.  As a perfect matching
+would immediately yield such an assignment, the PHP is a stronger
+statement and possibly easier to refute.  The statements
+are, however, quite similar and indeed we our proof
+follow along the same lines as \cite{jhkr} and use
+many ideas from that paper.
+
+As in most previous papers the main technical tool is to 
+prove a ``switching lemma''.
+By assigning values to most variables in a formula it is
+possible to switch a small depth-two formula from being
+a CNF to being a DNF and the other way around.
+By choosing a very special way of assigning values we
+are able to preserve the graph PHP and hence prove
+our theorem by induction over $d$.
+
+
+    \begin{thebibliography}{99}
+    
+    %% ...
+    \bibitem{ajtai}
+Mikl\'{o}s Ajtai.
+\newblock The complexity of the pigeonhole principle.
+\newblock {\em Combinatorica}, 14(4):417\nobreakdash--433, 1994.
+\newblock Preliminary version in \emph{FOCS~'88}.
+
+\bibitem{bpu92}
+Stephen Bellantoni, Toniann Pitassi, and Alasdair Urquhart.
+\newblock Approximation and small-depth frege proofs.
+\newblock {\em SIAM J. Comput.}, 21:1161--1179, 1992.
+
+\bibitem{haken}
+A.~Haken.
+\newblock The intractability of resolution.
+\newblock {\em Theoretical Computer Science}, 39:297 -- 308, 1985.
+
+\bibitem{jhtseitin}
+J.~H{\aa{}}stad.
+\newblock On small-depth frege proofs for tseitin for grids.
+\newblock {\em Journal of the ACM}, 68:1--31, 2020.
+
+\bibitem{jhkr}
+J.~H{\aa{}}stad and K.~Risse.
+\newblock On bounded depth proofs for tseitin formulas on the grid; revisited.
+\newblock In {\em 2022 IEEE 63rd Annual Symposium on Foundations of Computer
+  Science (FOCS)}, pages 1138--1149, 2022.
+\newblock Full version is available at ArXiv:2209.05839
+  https://arxiv.org/abs/2209.05839.
+
+\bibitem{kpw95}
+Jan Krajíček, Pavel Pudlák, and Alan Woods.
+\newblock An exponential lower bound to the size of bounded depth frege proofs
+  of the pigeonhole principle.
+\newblock {\em Random Structures \& Algorithms}, 7(1):15--39, 1995.
+
+\bibitem{pbi93}
+Toniann Pitassi, Paul Beame, and Russell Impagliazzo.
+\newblock Exponential lower bounds for the pigeonhole principle.
+\newblock {\em Computational Complexity}, 3:97\nobreakdash--140, 1993.
+\newblock Preliminary version in \emph{STOC~'92}.
+
+\bibitem{prst16}
+Toniann Pitassi, Benjamin Rossman, Rocco~A. Servedio, and Li-Yang Tan.
+\newblock Poly-logarithmic frege depth lower bounds via an expander switching
+  lemma.
+\newblock In {\em Proceedings of the Forty-Eighth Annual ACM Symposium on
+  Theory of Computing}, STOC ’16, page 644–657, New York, NY, USA, 2016.
+  Association for Computing Machinery.
+
+\bibitem{tseitin}
+G.~S. Tseitin.
+\newblock On the complexity of derivation in the proposistional calculus.
+\newblock In A.~O. Slisenko, editor, {\em Studies in constructive mathematics
+  and mathematical logic, Part II}, 1968.
+    
+    \end{thebibliography}
+    
+    \end{talk}
+
+
+ %% -------------------------------------------------------------------------------
+
+ \begin{talk}[Yaroslav Alekseev, Dima Grigoriev]{Edward A. Hirsch}
+  {Announcing Tropical Proof Systems}
+  {Hirsch, Edward A.}
+  
+  \noindent
+ 
+  Tropical (min-plus) arithmetic has many applications in various areas of mathematics. The operations are the real addition (as the tropical multiplication) and the minimum (as the tropical addition). Recently, \cite{BE,GrPo18,JM} demonstrated a version of Nullstellensatz in the tropical setting.
+
+In this talk we introduce ``tropical proof systems'': (semi)algebraic proof systems that use min-plus arithmetic.
+This allows us to view some known proof systems from a different angle. In particular, we provide a static Nullstellensatz-based tropical proof system {\texttt{MP-NS}} that (equipped with dual Boolean variables) polynomially simulates daglike resolution and also has short proofs for the propositional pigeon-hole principle.  Its dynamic version strengthened by an additional derivation rule (a tropical analogue of resolution by linear inequality) is equivalent to the system {\texttt{Res(LP)}}  \cite{HK06}, which derives nonnegative linear combinations of linear inequalities;
+this latter system is known to polynomially simulate Kraj\'{\i}\v{c}ek's\texttt{Res(CP)} \cite{Kra98} with unary coefficients.
+No exponential lower bounds are known for this system; there are recent results \cite{Stabbing2,Stabbing3} for a treelike version only.
+For the truth values encoded by $\{0,\infty\}$, dynamic tropical proofs are equivalent to
+{\texttt{Res($\infty$)}}, which is a small-depth Frege system called also DNF resolution.
+
+Therefore, tropical proof systems give a finer hierarchy of proof systems below {\texttt{Res(LP)}} for which we still do not have exponential lower bounds. For the weakest of them, {\texttt{MP-NS}} mentioned above, we can prove an exponential lower bound for a non-CNF (and very simple) system of inequalities (it expresses that a large tropical power of a Boolean variable equals a non-Boolean constant). The method of proving the bound is also simple enough: we construct a directed graph on monomials occurring in a tropical algebraic combination and analyze the coefficients of the algebraic combination this way. Therefore, we hope for new superpolynomial lower bounds for tropical proof systems of intermediate power. 
+
+The new notion of a tropical proof system leaves multiple open questions and directions for further research.
+
+
+  \begin{thebibliography}{99}
+  
+  %% ...
+  \bibitem{BE}
+Aaron Bertram and Robert Easton.
+\newblock The tropical {N}ullstellensatz for congruences.
+\newblock {\em Adv. Math}, 308:36--82, 2017.
+
+\bibitem{Stabbing2}
+Noah Fleming, Mika G{\"{o}}{\"{o}}s, Russell Impagliazzo, Toniann Pitassi,
+Robert Robere, Li{-}Yang Tan, and Avi Wigderson.
+\newblock On the power and limitations of branch and cut.
+\newblock In Valentine Kabanets, editor, {\em 36th Computational Complexity
+Conference, {CCC} 2021, July 20-23, 2021, Toronto, Ontario, Canada (Virtual
+Conference)}, volume 200 of {\em LIPIcs}, pages 6:1--6:30. Schloss Dagstuhl -
+Leibniz-Zentrum f{\"{u}}r Informatik, 2021.
+
+\bibitem{Stabbing3}
+Max Gl\"{a}ser and Marc~E. Pfetsch.
+\newblock Sub-exponential lower bounds for branch-and-bound with general
+disjunctions via interpolation.
+\newblock Technical Report 2308.04320, arXiv, 2023.
+
+\bibitem{GrPo18}
+Dima Grigoriev and Vladimir~V. Podolskii.
+\newblock Tropical effective primary and dual {N}ullstellens{\"{a}}tze.
+\newblock {\em Discrete and Computational Geometry}, 59(3):507--552, 2018.
+
+\bibitem{HK06}
+Edward~A. Hirsch and Arist Kojevnikov.
+\newblock Several notes on the power of {G}omory-{C}hv{\'{a}}tal cuts.
+\newblock {\em Ann. Pure Appl. Log.}, 141(3):429--436, 2006.
+
+\bibitem{JM}
+Daniel Joo and Kalina Mincheva.
+\newblock Prime congruences of additively idempotent semirings and a
+{N}ullstellensatz for tropical polynomials.
+\newblock {\em Selecta Math.}, 24:2207--2233, 2018.
+
+\bibitem{Kra98}
+Jan Kraj{\'{\i}}cek.
+\newblock Discretely ordered modules as a first-order extension of the cutting
+planes proof system.
+\newblock {\em J. Symb. Log.}, 63(4):1582--1596, 1998.
+
+  
+  \end{thebibliography}
+  
+  \end{talk}
+
+
+
+%% -------------------------------------------------------------------------------
+
+\begin{talk}{Pavel Hrube\v{s}}
+       {A Variant of Monotone Calculus}
+        {Hrubes, Pavel}
+        
+        \noindent
+       
+        Monotone calculus is a Frege-style system which operates with implications $A\rightarrow B$ where $A$ and $B$ are monotone. I will define a weakening of this system and show its connections with monotone arithmetic circuits.
+    
+    
+        \begin{thebibliography}{99}
+        
+        %% ...
+        \bibitem{MC}
+        Albert Atserias, Nicola Galesi, and Pavel Pudl\'{a}k.
+        \newblock Monotone simulations of non-monotone proofs.
+        \newblock {\em Journal of Computer and System Sciences}, 65:626--638, 2002.
+    
+        \bibitem{ja:epsilon}
+        Pavel Hrube\v{s}.
+        \newblock On $\epsilon$-sensitive monotone computations.
+        \newblock {\em Computational Complexity}, 29(2), 2020.
+    
+        
+        \end{thebibliography}
+        
+        \end{talk}
+    
+
+
+ %----------------------------------------------------
+    
+    \begin{talk}[Klim Efremenko, Michal Garl{\'{\i}}k]{Dmitry Itsykson}
+      {Lower Bounds for Regular Resolution Over Parities}
+      {Itsykson, Dmitry}
+      
+      \noindent
+     
+      The proof system resolution over parities ($\resoplus$) \cite{IS14, IS20} operates with disjunctions of linear equations 
+    (linear clauses) over $\mathbb{F}_2$; 
+it extends the resolution proof system by incorporating linear algebra over $\mathbb{F}_2$.  
+Over the years, several exponential lower bounds on the size of tree-like $\resoplus$ refutations have 
+been established \cite{IS14, GK18, Krajicek18, Gryaznov19, PartT21, IR21, Khaniki22, BK23, CMSS23}. However, proving a superpolynomial lower bound on the size of dag-like $\resoplus$ refutations remains a highly challenging open question.
+
+We prove an exponential lower bound for regular  $\resoplus$. Regular $\resoplus$ is a subsystem of dag-like $\resoplus$ that naturally extends regular resolution. This is the first known superpolynomial lower bound for a fragment of dag-like $\resoplus$ which is exponentially stronger than tree-like $\resoplus$.
+In the regular regime, resolving linear clauses $C_1$ and $C_2$ on a linear form $f$ is permitted only if, for both $i\in \{1,2\}$, the linear form $f$ does not lie within the linear span of all linear forms that were used in resolution rules during the derivation of $C_i$.
+
+Namely, we show that the size of any regular $\resoplus$ refutation of the binary pigeonhole principle $\BPHP^{n+1}_{n}$ is at least $2^{\Omega(\sqrt[3]{n}/\log n)}$. A corollary of our result is an exponential lower bound on the size of a strongly read-once linear branching program solving a search problem. This resolves an open question raised by Gryaznov, Pudl\'{a}k, and Talebanfard~\cite{GryaznovPT22}.
+
+As a byproduct of our technique, we prove that the size of any tree-like $\resoplus$ refutation of the weak binary pigeonhole principle $\BPHP^{m}_{n}$ is at least $2^{\Omega(n)}$ using Prover-Delayer games. We also give a direct proof of a width lower bound: we show that any dag-like $\resoplus$ refutation of $\BPHP^{m}_{n}$ contains a linear clause $C$ with $\Omega(n)$ linearly independent equations.
+  
+      \begin{thebibliography}{99}
+      
+      %% ...
+      \bibitem{BK23}
+Paul Beame and Sajin Koroth.
+\newblock {On Disperser/Lifting Properties of the Index and Inner-Product
+  Functions}.
+\newblock In Yael Tauman~Kalai, editor, {\em 14th Innovations in Theoretical
+  Computer Science Conference (ITCS 2023)}, volume 251 of {\em Leibniz
+  International Proceedings in Informatics (LIPIcs)}, pages 14:1--14:17,
+  Dagstuhl, Germany, 2023. Schloss Dagstuhl -- Leibniz-Zentrum f{\"u}r
+  Informatik.
+
+\bibitem{CMSS23}
+Arkadev Chattopadhyay, Nikhil~S. Mande, Swagato Sanyal, and Suhail Sherif.
+\newblock Lifting to parity decision trees via stifling.
+\newblock In Yael~Tauman Kalai, editor, {\em 14th Innovations in Theoretical
+  Computer Science Conference, {ITCS} 2023, January 10-13, 2023, MIT,
+  Cambridge, Massachusetts, {USA}}, volume 251 of {\em LIPIcs}, pages
+  33:1--33:20. Schloss Dagstuhl - Leibniz-Zentrum f{\"{u}}r Informatik, 2023.
+
+\bibitem{GK18}
+Michal Garl{\'{\i}}k and Leszek~Aleksander Ko\l{}odziejczyk.
+\newblock Some subsystems of constant-depth frege with parity.
+\newblock {\em {ACM} Trans. Comput. Log.}, 19(4):29:1--29:34, 2018.
+
+\bibitem{Gryaznov19}
+Svyatoslav Gryaznov.
+\newblock Notes on resolution over linear equations.
+\newblock In Ren{\'{e}} van Bevern and Gregory Kucherov, editors, {\em Computer
+  Science - Theory and Applications - 14th International Computer Science
+  Symposium in Russia, {CSR} 2019, Novosibirsk, Russia, July 1-5, 2019,
+  Proceedings}, volume 11532 of {\em Lecture Notes in Computer Science}, pages
+  168--179. Springer, 2019.
+
+\bibitem{GryaznovPT22}
+Svyatoslav Gryaznov, Pavel Pudl{\'{a}}k, and Navid Talebanfard.
+\newblock Linear branching programs and directional affine extractors.
+\newblock In Shachar Lovett, editor, {\em 37th Computational Complexity
+  Conference, {CCC} 2022, July 20-23, 2022, Philadelphia, PA, {USA}}, volume
+  234 of {\em LIPIcs}, pages 4:1--4:16. Schloss Dagstuhl - Leibniz-Zentrum
+  f{\"{u}}r Informatik, 2022.
+
+\bibitem{IR21}
+Dmitry Itsykson and Artur Riazanov.
+\newblock Proof complexity of natural formulas via communication arguments.
+\newblock In Valentine Kabanets, editor, {\em 36th Computational Complexity
+  Conference, {CCC} 2021, July 20-23, 2021, Toronto, Ontario, Canada (Virtual
+  Conference)}, volume 200 of {\em LIPIcs}, pages 3:1--3:34. Schloss Dagstuhl -
+  Leibniz-Zentrum f{\"{u}}r Informatik, 2021.
+
+\bibitem{IS14}
+Dmitry Itsykson and Dmitry Sokolov.
+\newblock Lower bounds for splittings by linear combinations.
+\newblock In Erzs{\'{e}}bet Csuhaj{-}Varj{\'{u}}, Martin Dietzfelbinger, and
+  Zolt{\'{a}}n {\'{E}}sik, editors, {\em Mathematical Foundations of Computer
+  Science 2014 - 39th International Symposium, {MFCS} 2014, Budapest, Hungary,
+  August 25-29, 2014. Proceedings, Part {II}}, volume 8635 of {\em Lecture
+  Notes in Computer Science}, pages 372--383. Springer, 2014.
+
+\bibitem{IS20}
+Dmitry Itsykson and Dmitry Sokolov.
+\newblock Resolution over linear equations modulo two.
+\newblock {\em Ann. Pure Appl. Log.}, 171(1), 2020.
+
+\bibitem{Khaniki22}
+Erfan Khaniki.
+\newblock On proof complexity of resolution over polynomial calculus.
+\newblock {\em {ACM} Trans. Comput. Log.}, 23(3):16:1--16:24, 2022.
+
+\bibitem{Krajicek18}
+Jan Krajicek.
+\newblock Randomized feasible interpolation and monotone circuits with a local
+  oracle.
+\newblock {\em J. Math. Log.}, 18(2):1850012:1--1850012:27, 2018.
+
+\bibitem{PartT21}
+Fedor Part and Iddo Tzameret.
+\newblock Resolution with counting: Dag-like lower bounds and different moduli.
+\newblock {\em Comput. Complex.}, 30(1):2, 2021.
+  
+      
+      \end{thebibliography}
+      
+      \end{talk}
+  
+
+% ----------------------------
+
+\begin{talk}{Emil Je\v r\'abek}
+  {On the Theory of Exponential Integer Parts}
+  {Jerabek, Emil}
+  
+  \noindent
+  An \emph{integer part (IP)} of an ordered ring~$R$ is a discretely ordered subring $I\sset R$ such that every $x\in R$
+  is within distance $1$ from~$I$. (By abuse of language, we will conflate a discretely ordered ring~$I$ with the ordered
+  semiring $I_{\ge0}$.) A classical result of Shepherdson~\cite{EJ:sheph} characterizes models of $\io$ (= Robinson's
+  arithmetic + induction for open formulas in the language $\langor=\p{0,1,+,\cdot,{<}}$):
+  \begin{Thm}\label{EJ:thm:shep}
+  Integer parts of real-closed fields are exactly the models of $\io$.
+  \end{Thm}
+  
+  Let an \emph{exponential field} be an ordered field $R$ endowed with an isomorphism
+  $\exp\colon\p{R,0,1,+,{<}}\to\p{R_{>0},1,2,\cdot,{<}}$, optionally satisfying the \emph{growth axiom (GA)} $\exp(x)>x$.
+  Introduced by Ressayre~\cite{EJ:ress:eip}, an \emph{exponential integer part (EIP)} of an exponential ordered field
+  $\p{R,\exp}$ is an IP $I\sset R$ such that $I_{\ge0}$ is closed under $\exp$. We are interested in the question of
+  characterizing (non-negative parts of) ordered rings that are EIP of real-closed exponential fields (RCEF), and in
+  particular, what is the first-order theory of such rings. This problem (and in particular, the question whether this
+  theory properly extends $\io$) was raised by Je\v r\'abek~\cite{EJ:ej:vtceip}, who provided an upper bound: all
+  countable models of the bounded arithmetical theory $\thry{VTC^0}$
+  % (or more precisely, the equivalent one-sorted theory $\dicr$)
+  in~$\langor$ are EIP of RCEF.
+  
+  Extensions of Theorem~\ref{EJ:thm:shep} to exponential ordered fields were previously studied by Boughattas and
+  Ressayre~\cite{EJ:bou-ress:eip} and Kovalyov~\cite{EJ:kov:eip}, but they focused on generalizing the other direction of the
+  theorem (e.g., what additional properties of RCEF ensure that their EIP are models of open induction in a language with
+  exponentiation?). Moreover, they were mostly concerned with EIP in a language with the binary powering operation
+  $x^y=\exp(y\log x)$. Since $\p{I,+,\cdot,<,x^y}$ can define approximations of $\exp$ on its fraction field~$F$,
+  we can canonically extend $\exp$ to the completion of~$F$; but no such direct construction seems possible for EIP in
+  $\langor$ or $\lange$, hence our arguments will be of different nature.
+  
+  The main goal of this talk is to present complete axiomatizations of the first-order theories of EIP of RCEF in
+  $\lange$, $\langp$ (where $P_2$ is a predicate for the image of $2^x$), and $\langor$, denoted $\teipe$, $\teipp$, and
+  $\teip$, and to determine some basic properties of these theories.
+  
+  The theories $\teipe$ and $\teipp$ are axiomatized over $\io$ by a finite list of a few obvious axioms. The theory
+  $\teip$ is more involved: it has an infinite schema of axioms $\pwin^0_n$ expressing, for each $n\in\N$, that the
+  second player has a winning strategy in the \emph{power-of-two game $\powg_n$}. This game is played between two
+  players, Challenger (C) and Powerator (P), in $n$~rounds: in round $0\le i<n$, C picks $x_i>0$, and P responds with
+  $u_i>0$ such that $u_i\le x_i<2u_i$. C wins if $u_iu_j<u_h<2u_iu_j$ for some $h,i,j<n$, otherwise P wins. The
+  motivation for the game is that if $\p{\sM,P_2}\model\teipp$, then ``play $u_i\in P_2$'' is a winning strategy for~P.
+  
+  Using the existence of a nonstandard model of $\io$ that is a UFD (Smith~\cite{EJ:smith}), we can show that
+  $\teip$ properly extends $\io$.
+  
+  The main problem about basic properties of $\teip$ is whether it is finitely axiomatizable over $\io$. As a partial
+  progress, we show that the formulas $\pwin^1_n(u)$, $n\in\N$, form a strictly increasing hierarchy over $\Th(\N)$, where
+  $\pwin^1_n(u)$ expresses that P wins the game $\powg^1_n(u)$ defined like $\powg_n$, but with the first move of P
+  fixed as~$u$. To this end, we prove reasonably tight upper and lower bounds on the complexity measure
+  $c(u)=\min\{n:\text{C wins }\powg^1_{n+1}(u)\}$, showing that $\{c(u):u\text{ not a power of }2\}=\N_{>0}$. For
+  example, $k+1\le c\bigl(6^{2^{\scriptstyle2^k}\textstyle!}\bigr)\le k+4$.
+  
+  These bounds also imply that there are models $\p{\sM,P_2}\model\Th(\N)+\teipp$ such that
+  $P_2$ is incomparable with the set of ``oddless numbers'' (i.e., whose all nontrivial divisors are even); indeed, $u\in
+  P_2$ may even be divisible by~$3$.
+  
+  This talk is based on \cite{EJ:ej:teip}. The work was supported by the Czech Academy of Sciences (RVO 67985840) and GA
+  \v CR project 23-04825S.
+  
+  \begin{thebibliography}{9}
+  
+  \bibitem{EJ:bou-ress:eip}
+  S. Boughattas and J.-P. Ressayre, \emph{Arithmetization of the field
+    of reals with exponentiation extended abstract}, RAIRO -- Theoretical
+    Informatics and Applications \textbf{42} (2008), 105--119.
+  
+  \bibitem{EJ:ej:vtceip}
+  E. Je\v r\'abek, \emph{Models of $\mathsf{VTC^0}$ as exponential
+    integer parts}, Mathematical Logic Quarterly \textbf{69} (2023),
+    244--260.
+  
+  \bibitem{EJ:ej:teip}
+  \bysame, \emph{On the theory of exponential integer parts}, {arXiv:2404.06888
+    [math.LO]}, 2024, \texttt{https://arxiv.org/abs/2404.06888}.
+  
+  \bibitem{EJ:kov:eip}
+  K. Kovalyov, \emph{Analogues of Shepherdson's Theorem for a
+    language with exponentiation}, {arXiv:2306.02012 [math.LO]}, 2023,
+    \texttt{https://arxiv.org/abs/2306.02012}.
+  
+  \bibitem{EJ:ress:eip}
+  J.-P. Ressayre, \emph{Integer parts of real closed exponential fields},
+    in: Arithmetic, proof theory, and computational complexity (P.~Clote and
+    J.~Kraj\'\i\v cek, eds.), Oxford Logic Guides vol.~23, Oxford University
+    Press, 1993, 278--288.
+  
+  \bibitem{EJ:sheph}
+  J.~C. Shepherdson, \emph{A nonstandard model for a free variable fragment of
+    number theory}, Bul\-le\-tin de l'Aca\-d{\'e}\-mie Po\-lo\-naise des
+    \hbox{Sciences}, S{\'e}\-rie des \hbox{Sciences} Ma\-th{\'e}\-ma\-tiques,
+    As\-tro\-no\-miques et Phy\-siques \textbf{12} (1964), 79--86.
+  
+  \bibitem{EJ:smith}
+  S.~T. Smith, \emph{Building discretely ordered Bezout domains and GCD
+    domains}, Journal of Algebra \textbf{159} (1993), 191--239.
+  \end{thebibliography}
+  
+\end{talk}
+
+
+%% -------------------------------------------------------------------------------
+\begin{talk}{Meena Mahajan}
+  {Proof Complexity and QBF}
+  {Mahajan, Meena}
+
+  This talk gave a short overview of proof complexity for {\em
+  Quantified Boolean Formulas} (QBFs).
+
+While traditionally the complexity of propositional proofs has been at
+the centre of research, the past two decades have witnessed a surge in
+proof complexity of QBFs.  Some of the main paradigms used to extend
+propositional proof systems to QBFs include expansion, universal
+reduction, literal merging, and incremental strategy construction.
+(In particular, applying these paradigms gives multiple QBF proof
+systems based on resolution alone.) Soundness is often demonstrated by
+proving that from proofs in these systems, Herbrand functions
+(equivalently, winning strategies for the universal player in the
+two-player evaluation game) can be extracted.
+
+There are not too many techniques for proving lower bounds in QBF
+proof systems. In most systems, propositional hardness transfers
+directly. But this is not the ``genuine'' QBF hardness we seek to
+understand, the hardness that would persist in a QBF solver even given
+access to, say, a SAT oracle. The principal technique for
+understanding such hardness is transferring computational
+hardness. Proofs contain, even if implicitly, information about
+winning strategies. Identifying the right computational model in which
+such extracted strategies can be computed enables the required
+transfer.
+
+The most successful practical SAT solvers are based on the CDCL
+(Conflict-Driven Clause Learning) template, which is known to be
+equivalent to Resolution. In the QBF world, not only is there no
+unique analogue of Resolution, there is also no unique way of
+extending the algorithm template to Quantified QCDCL. Recent work has
+formalised proof systems underlying QCDCL-style algorithms and has
+also proposed more generalised proof systems, providing some analagues
+of the CDCL=Resolution equivalence.
+
+An overview of QBF proof complexity can be found in
+\cite{Beyersdorff-M4C23}, and of relations between QBF solving and
+proof complexity in \cite{BJLS-HandbookSAT21}.
+
+  \begin{thebibliography}{99}
+
+    \bibitem{Beyersdorff-M4C23}
+Olaf Beyersdorff.
+\newblock Proof complexity of quantified boolean logic — a survey.
+\newblock In Marco Benini, Olaf Beyersdorff, Michael Rathjen, and Peter
+  Schuster, editors, {\em Mathematics for Computation (M4C)}, chapter Chapter
+  15, pages 397--440. World Scientific, 2023.
+
+\bibitem{BJLS-HandbookSAT21}
+Olaf Beyersdorff, Mikol{\'{a}}s Janota, Florian Lonsing, and Martina Seidl.
+\newblock Quantified boolean formulas.
+\newblock In Armin Biere, Marijn Heule, Hans van Maaren, and Toby Walsh,
+  editors, {\em Handbook of Satisfiability - Second Edition}, volume 336 of
+  {\em Frontiers in Artificial Intelligence and Applications}, pages
+  1177--1221. {IOS} Press, 2021.
+
+  \end{thebibliography}
+\end{talk}
+
+%% -------------------------------------------------------------------------------
+
+\begin{talk}[Duri Janett, Jakob Nordstr\"om]{Shuo Pang}
+  {Supercritical and Robust Trade-offs for Resolution Depth Versus Width and Weisfeiler--Leman}
+  {Pang, Shuo}
+  
+  \noindent
+  We study trade-offs in proof complexity and Weisfeiler--Leman algorithms. 
+  In a trade-off between a pair of complexity measures, 
+  if the first measure is constrained to be small, then usually, the lower bound on the second measure stays below the trivial worst-case upper bound. 
+  By contrast, in a so-called supercritical trade-off, the lower bound on the second measure is larger than its worst-case upper bound (see e.g. \cite{BBI16TimeSpace,BNT13SomeTradeoffs,Razborov16NewKind,BN20Supercritical,fleming2022extremely,buss2024simple}). 
+  We present the first resolution width-depth trade-off which is supercritical not only measured in variable size but also in formula size, and which has non-trivial robustness. More specifically, we prove that low width implies depth superlinear in the formula size, where the width is allowed to go up to twice the minimum.
+  
+  We give analogous trade-offs for the Weisfeiler--Leman algorithm, a fundamental tool in graph isomorphism testing. 
+  Namely, for all $k\geq 2$ and $c\leq k-2$, if $N$ is large enough, we show that there are vertex-size $N$ graph pairs that are distinguishable by $k$-dimensional Weisfeiler--Leman, but even with dimension $k+c$ the algorithm nonetheless requires $\Omega({N}^{k/(c+2)})$ many iterations. This improves the result in \cite{GLNS23} which was proved in the case $c=0$, solving an open problem there asking for lower bounds that hold for dimensions larger than the minimum.
+  The result also translates into trade-offs between number of variables and quantifier depth in first-order logic.
+  
+  Both results follow from lower bounds on a combinatorial game, closely linked to Tseitin formulas and Cai-F\"urer-Immerman graphs. 
+  The game is the \emph{compressed Cop-Robber game} introduced by \cite{GLNS23}. 
+  It is a variant of the classical Cop-Robber game on a graph, where in addition a vertex-identification and edge-identification is posed, called a ``compression''.  
+  From a proof-complexity perspective, the compression induces a structured variable substitution under which the (Tseitin) formula size shrinks, a feature that is not possessed by the popular variable substitution based on XOR gadgets and expander graphs.
+  
+  Our main technical contribution is a new compression scheme of the game and its analysis. 
+  Namely, for each $c\in\{1,\ldots, k-1\}$ we give a compressed game where $k+1$ Cops can win, but the Robber can survive $\Omega(n^{k/(c+1)})$ rounds even against $k+c$ Cops. 
+  
+  
+  \begin{thebibliography}{99}
+  \bibitem{BBI16TimeSpace}
+  Paul Beame, Chris Beck, and Russell Impagliazzo, \textit{Time-Space Tradeoffs in Resolution: Superpolynomial Lower Bounds for Superlinear Space}, SIAM Journal on Computing, 2016, vol. 45, no. 4, 1612--1645. Preliminary version in \emph{STOC~'12}.
+  
+  \bibitem{Berkholz12ComplexityNarrowProofs}
+  Christoph Berkholz, \textit{On the Complexity of Finding Narrow Proofs}, Proceedings of the 53rd Annual {IEEE} Symposium on Foundations of Computer Science ({FOCS}~'12), 2012, 351--360.
+  
+  \bibitem{BN20Supercritical}
+  Christoph Berkholz and Jakob Nordström, \textit{Supercritical Space-Width Trade-offs for Resolution}, {SIAM Journal on Computing}, 2020, vol. 49, no. 1, 98--118. Preliminary version in \emph{ICALP~'16}.
+  
+  \bibitem{BNT13SomeTradeoffs} 
+  Chris Beck, Jakob Nordström, and Bangsheng Tang, \textit{Some Trade-off Results for Polynomial Calculus}, Proceedings of the 45th Annual ACM Symposium on Theory of Computing ({STOC}~'13), 2013, 813--822.
+  
+  \bibitem{buss2024simple}
+  Sam Buss and Neil Thapen, \textit{A Simple Supercritical Tradeoff between Size and Height in Resolution}, 2024, Technical Report, {Electronic Colloquium on Computational Complexity (ECCC)}, TR24-001.
+  
+  \bibitem{fleming2022extremely}
+  Noah Fleming, Toniann Pitassi, and Robert Robere, \textit{Extremely deep proofs}, Proceedings of the 13th Innovations in Theoretical Computer Science Conference ({ITCS}~'22), 2022, 70:1\nobreakdash--70:23.
+  
+  \bibitem{GLNS23}
+  Martin Grohe, Moritz Lichter, Daniel Neuen, and Pascal Schweitzer, \textit{Compressing {CFI} Graphs and Lower Bounds for the {W}eisfeiler-{L}eman Refinements}, Proceedings of the 64th IEEE Annual Symposium on Foundations of Computer Science ({FOCS}~'23), 2023, 798--809.
+  
+  \bibitem{Razborov16NewKind}
+  Alexander Razborov, \textit{A New Kind of Tradeoffs in Propositional Proof Complexity}, Journal of the ACM, 2016, vol. 63, no. 2, 16:1--16:14.
+  
+  %% ...
+  
+  \end{thebibliography}
+  
+  \end{talk}
+
+%%-----------------------
+
+\begin{talk}{Theodoros Papamakarios}
+  {On the Automatability of Bounded-Depth Frege Systems}
+  {Papamakarios, Theodoros}
+  
+  \noindent
+  A large chunk of research in proof complexity concentrates on trying to show that certain statements cannot have short proofs in some proof system. But even if a statement does have short proofs in a proof system, such proofs may not be easy to find. This motivates the notion of automatability \cite{Boneetal00}: A proof system $P$ is called automatable if, given a statement $\tau$, one can find a $P$-proof of $\tau$ in time polynomial in the size of the shortest $P$-proof of $\tau$. Apart from being a natural notion in itself, of central importance to automated theorem proving, the concept of automatability is connected to other important threads in proof complexity, e.g.~canonical pairs and feasible interpolation \cite{Boneetal00,Pudl03,AtseBone04}. 
+
+Now, the stronger the proof system, the harder it is to automate it, and indeed, early results show non-automatability for strong systems under plausible complexity theoretic assumptions \cite{KrajPudl98,Boneetal00}, and even, tightening the assumptions, weaker systems \cite{Boneetal04,AlekRazb08}. More recently, starting with \cite{AtseMull20}, weak proof systems, including resolution, res(k), cutting planes and various algebraic proof systems, have been shown to be as hard to automate as possible \cite{AtseMull20,Goosetal20,Garl20,Rezeetal21}. In this talk, we argue how this can be extended to bounded-depth Frege systems.
+
+We furthermore touch upon the problem of whether resolution is weakly automatable. A proof system $P$ is weakly automatable if, given a statement $\tau$, one can find a $Q$-proof of $\tau$ in time polynomial in the size of the shortest $P$-proof of $\tau$, where $Q$ is a proof system that polynomially simulates $P$. Whereas we know that resolution is as hard to automate as possible, whether it can be weakly automatable remains to a large extent open. An equivalent problem is whether depth-2 Frege systems have feasible interpolation \cite{Boneetal04,Becketal14}. Focusing on the latter problem, we present a version of the point-line game of \cite{Becketal14}, present some of its properties, trying to suggest that the problem of weakly automating resolution might not be as hard as the problem of (strongly) automating resolution.
+  
+  \begin{thebibliography}{99}
+  
+    \bibitem{AlekRazb08}
+    Michael Alekhnovich and Alexander Razborov.
+    \newblock Resolution is not automatizable unless {W[P]} is tractable.
+    \newblock {\em {SIAM} Journal of Computing}, 38:1347--1363, 2008.
+    
+    \bibitem{AtseBone04}
+    Albert Atserias and Maria~Luisa Bonet.
+    \newblock On the automatizability of resolution and related propositional proof
+      systems.
+    \newblock {\em Information and Computation}, 189:182--201, 2004.
+    
+    \bibitem{AtseMull20}
+    Albert Atserias and Moritz M{\"{u}}ller.
+    \newblock Automating resolution is {NP}-hard.
+    \newblock {\em Journal of the {ACM}}, 67:31:1--31:17, 2020.
+    
+    \bibitem{Becketal14}
+    Arnold Beckmann, Pavel Pudl{\'{a}}k, and Neil Thapen.
+    \newblock Parity games and propositional proofs.
+    \newblock {\em {ACM} Transactions on Computational Logic}, 15:17:1--17:30,
+      2014.
+    
+    \bibitem{Boneetal04}
+    Maria~Luisa Bonet, Carlos Domingo, Ricard Gavald{\`{a}}, Alexis Maciel, and
+      Toniann Pitassi.
+    \newblock Non-automatizability of bounded-depth frege proofs.
+    \newblock {\em Computational Complexity}, 13:47--68, 2004.
+    
+    \bibitem{Boneetal00}
+    Maria~Luisa Bonet, Toniann Pitassi, and Ran Raz.
+    \newblock On interpolation and automatization for frege systems.
+    \newblock {\em {SIAM} Journal of Computing}, 29:1939--1967, 2000.
+    
+    \bibitem{Rezeetal21}
+    Susanna de~Rezende, Mika G{\"{o}}{\"{o}}s, Jakob Nordstr{\"{o}}m, Toniann
+      Pitassi, Robert Robere, and Dmitry Sokolov.
+    \newblock Automating algebraic proof systems is {NP}-hard.
+    \newblock In {\em Proccedings of the 53rd Annual {ACM} Symposium on Theory of
+      Computing}, pages 209--222, 2021.
+    
+    \bibitem{Garl20}
+    Michal Garl{\'{\i}}k.
+    \newblock Failure of feasible disjunction property for k-{DNF} resolution and
+      {NP}-hardness of automating it.
+    \newblock {\em Electronic Colloqium on Computational Complexity}, 2020.
+    
+    \bibitem{Goosetal20}
+    Mika G{\"{o}}{\"{o}}s, Sajin Koroth, Ian Mertz, and Toniann Pitassi.
+    \newblock Automating cutting planes is {NP}-hard.
+    \newblock In {\em Proccedings of the 52nd Annual {ACM} Symposium on Theory of
+      Computing}, pages 68--77, 2020.
+    
+    \bibitem{KrajPudl98}
+    Jan Kraj{\'{\i}}cek and Pavel Pudl{\'{a}}k.
+    \newblock Some consequences of cryptographical conjectures for {$S^1_2$} and
+      {EF}.
+    \newblock {\em Information and Computation}, 140:82--94, 1998.
+    
+    \bibitem{Pudl03}
+    Pavel Pudl{\'{a}}k.
+    \newblock On reducibility and symmetry of disjoint {NP} pairs.
+    \newblock {\em Theoretical Computer Science}, 295:323--339, 2003.
+  
+  %% ...
+  
+  \end{thebibliography}
+  
+  \end{talk}
+  
+  %% -------------------------------------------------------------------------------
+  \begin{talk}[Aaron Zhang]{Aaron Potechin}
+    {Bounds on the Total Coefficient Size of Nullstellensatz Proofs of the Pigeonhole Principle}
+    {Potechin, Aaron}
+
+    Given a system $\{p_i = 0: i \in [m]\}$ of $m$ polynomial equations, a Nullstellensatz proof of infeasibility is an equality of the form $1 = \sum_{i=1}^{m}{p_i{q_i}}$ for some polynomials $\{q_i = 0: i \in [m]\}$. Hilbert's Nullstellensatz\footnote{Technically, this is the weak form of Hilbert's Nullstellensatz. Hilbert's Nullstellensatz actually says that given polynomials $p_1,\ldots,p_m$ and another polynomial $p$, if $p(x) = 0$ for all $x$ such that $p_i(x) = 0$ for each $i \in [m]$ then there exists a natural number $r$ such that $p^r$ is in the ideal generated by $p_1,\ldots,p_m$. 
+} says that the Nullstellensatz proof system is complete, i.e., a system of polynomial equations has no solutions over an algebraically closed field if and only if there is a Nullstellensatz proof of infeasibility. However, Hilbert's Nullstellensatz does not give any bounds on how large a Nullsellensatz proof must be in order to refute an infeasible system of polynomial equations.
+
+Previously, most research on Nullstellensatz has analyzed the size and degree of Nullstellenstaz proofs. In this work, instead of investigating the size or degree of Nullstellensatz proofs, we investigate the total coefficient size of Nullstellensatz proofs, i.e., the sum of the magnitudes of the coefficients of the monomials in the proof. Our main reason for this is that total coefficient size is a reasonably natural measure which is relatively unexplored (though there has been considerable research on closely related measures such as unary Nullstellensatz size, 
+unary Sherali-Adams size, and the total bit complexity of proofs \cite{10.4230/LIPIcs.CCC.2021.21, 10.1145/3357713.3384245, 10.1145/3531130.3533344, 9996792, 10353221}). 
+That said, there are several other reasons why total coefficient size bounds are interesting. 
+
+First, analyzing the total coefficient size of proofs may give insight into proof size in settings where we currently cannot prove size lower bounds. If we can prove a large total coefficient size lower bound, this shows that any proof must either have large size or involve large coefficients. Unless there is a reason to suspect that large coefficients are helpful for making the proof shorter, this gives considerable evidence for a lower bound on proof size. 
+
+Second, lower bounds on total coefficient size have some direct implications. As observed by \cite{9996792}, a total coefficient size lower bound for the stronger Sherali-Adams proof system implies a lower bound for the reversible resolution proof system which captures the Max-SAT resolution proof system (see \cite{BONET2007606}) for Max SAT. Similarly, \cite{9996792} observes that a total coefficient size lower bound for Nullstellensatz implies a lower bound for the reversible resolution with terminals proof system, which is a weaker variant of reversible resolution. 
+
+Finally, investigating the total coefficient size of proofs gives insight into the following question. Are there natural examples where having fractional coefficients greatly reduces the total coefficient size needed for Nullstellensatz and/or Sherali-Adams proofs? Proving total coefficient size lower bounds for a problem rules out this possibility for that problem. Conversely, if there is a natural example where the minimum proof size is large but the total coefficient size is small, this would be quite interesting.
+
+In this work, we show that the minimum total coefficient size of a Nullstellensatz proof of the pigeonhole principle is $2^{\Theta(n)}$. More precisely, we show the following bounds.
+\begin{theorem}\label{thm:pigeonholelowerbound}
+For all $n \geq 2$, any Nullstellensatz proof of the pigeonhole principle with $n$ pigeons and $n-1$ holes has total coefficient size $\Omega\left(n^{\frac{3}{4}}\left(\frac{2}{\sqrt{e}}\right)^{n}\right)$.
+\end{theorem}
+We note that this lower bound also holds for the functional pigeonhole principle, where each pigeon must go to exactly one hole (instead of at least one hole).
+\begin{theorem}
+For all $n \geq 2$, there is a Nullstellensatz proof of the pigeonhole principle with $n$ pigeons and $n-1$ holes with total coefficient size at most $2^{5n}$.
+\end{theorem}
+This is joint work with Aaron Zhang which will appear in ICALP 2024. The full version of our paper is on arXiv \cite{potechin2022bounds}. This research was supported by NSF grant CCF-2008920 and NDSEG fellowship F-9422254702.
+
+\begin{thebibliography}{99}
+  \bibitem{10.4230/LIPIcs.CCC.2021.21}
+Yaroslav Alekseev.
+\newblock A lower bound for polynomial calculus with extension rule.
+\newblock In {\em Proceedings of the 36th Computational Complexity Conference},
+  CCC '21, Dagstuhl, DEU, 2021. Schloss Dagstuhl--Leibniz-Zentrum fuer
+  Informatik.
+
+\bibitem{10.1145/3357713.3384245}
+Yaroslav Alekseev, Dima Grigoriev, Edward~A. Hirsch, and Iddo Tzameret.
+\newblock Semi-algebraic proofs, ips lower bounds, and the tau-conjecture: can
+  a natural number be negative?
+\newblock In {\em Proceedings of the 52nd Annual ACM SIGACT Symposium on Theory
+  of Computing}, STOC 2020, page 54–67, New York, NY, USA, 2020. Association
+  for Computing Machinery.
+
+\bibitem{10.1145/3531130.3533344}
+Ilario Bonacina and Maria~Luisa Bonet.
+\newblock On the strength of sherali-adams and nullstellensatz as propositional
+  proof systems.
+\newblock In {\em Proceedings of the 37th Annual ACM/IEEE Symposium on Logic in
+  Computer Science}, LICS '22, New York, NY, USA, 2022. Association for
+  Computing Machinery.
+
+\bibitem{BONET2007606}
+María~Luisa Bonet, Jordi Levy, and Felip Manyà.
+\newblock Resolution for max-sat.
+\newblock {\em Artificial Intelligence}, 171(8):606--618, 2007.
+
+\bibitem{9996792}
+M.~Goos, A.~Hollender, S.~Jain, G.~Maystre, W.~Pires, R.~Robere, and R.~Tao.
+\newblock Separations in proof complexity and tfnp.
+\newblock In {\em 2022 IEEE 63rd Annual Symposium on Foundations of Computer
+  Science (FOCS)}, pages 1150--1161, Los Alamitos, CA, USA, nov 2022. IEEE
+  Computer Society.
+
+\bibitem{potechin2022bounds}
+Aaron Potechin and Aaron Zhang.
+\newblock Bounds on the total coefficient size of nullstellensatz proofs of the
+  pigeonhole principle and the ordering principle, 2022.
+
+\bibitem{10353221}
+S.~F.~de Rezende, A.~Potechin, and K.~Risse.
+\newblock Clique is hard on average for unary Sherali-Adams.
+\newblock In {\em 2023 IEEE 64th Annual Symposium on Foundations of Computer
+  Science (FOCS)}, pages 12--25, Los Alamitos, CA, USA, nov 2023. IEEE Computer
+  Society.
+
+\end{thebibliography}
+
+\end{talk}
+
+%% -------------------------------------------------------------------------------
+
+\begin{talk}{Pavel Pudl\'ak}
+  {Quantified Propositional Calculi and Narrow Implicit Proofs}
+  {Pudlak, Pavel}
+  
+  \noindent
+ 
+  \paragraph{\textbf{Quantified Propositional Calculus $G$.}} This is the sequent calculus that uses quantified propositions and all rules, including quantifier rules~\cite{krajicek-pudlak}. We have to specify how the quantifier rules are used because in propositional calculus there are no terms. In this paper we will use quantifier-free formulas in place of terms in~$LK$ in the quantifier rules. %Systems with quantifier rules in which quantified proposition are allowed have also been considered and they are polynomially equivalent to the system with quantifier-free formulas. 
+
+\paragraph{\textbf{Fragments $G_i$ of $G$.}} The classes $\Sigma_i^q,\Pi_i^q$ of quantified propositional formulas are defined in the usual way. 
+For $i\geq 1$, $G_i$ denotes the $\Sigma_i^q$ fragment of~$G$, which is~$G$ restricted to formulas of~$\Sigma_i^q$.
+
+\paragraph{\textbf{Implicit proofs and narrow implicit proofs.}}
+
+Jan Kraj\'i\v cek~\cite{krajicek-implicit} defined an operation that from two proof systems $P$ and $Q$ produces another proof system, which he denoted by $[P,Q]$. The proof system $[P,Q]$ can be roughly described as follows. A proof of $\phi$ in $[P,Q]$ is a pair $(\Pi,C)$, where $C$ is a Boolean circuit that succinctly defines a possibly exponential size $Q$-proof of $\phi$, and $\Pi$ is a $P$-proof of a formula that expresses this fact. In the special case when $P=Q$, Kraj\'i\v cek calls such a proof system \emph{implicit $P$} and denotes it by $iP$. For natural proof systems $P$, this operation seems to produce from $P$ an essentially stronger proof system $iP$.
+
+Kraj\'i\v cek also defined a restricted version of $[P,Q]$ and denoted it by $[P,Q]^m$; we will  call it \emph{the narrow implicit proof system defined by $P,Q$}. Unlike the general concept of implicit proofs, narrow implicit proof systems are only defined when the proof system $Q$ is based on formulas.  %Furthermore, we assume that formulas are encoded as binary strings and the relations defining the rules are decidable in polynomial time (assuming this encoding of formulas).
+
+\begin{definition}
+Let $P$ be an arbitrary proof system and $Q$ a formula based proof system with a class of formulas $\mathcal F$ and a set of deduction rules $R_1,\dots, R_l$. A proof of a formula $\phi$ in $[P,Q]^m$ (the \emph{narrow implicit proof system} defined by $P,Q$) is a pair $(\Pi,C)$ where $C$ is a circuit computing a Boolean function $f_C:\{0,1\}^n\to\{0,1\}^m$ and $\Pi$ is a $P$-proof of the formula $\gamma_{C,\phi}$ which says that $f_C$ correctly encodes a $Q$-proof of~$\phi$. In more detail, $\gamma_{C,\phi}$ should express the following condition:
+\begin{itemize}
+\item For an $i\in \{0,1\}^n$, $C(i)$, the bit-string that $C$ outputs, encodes a string consisting of a formula and $k+1$ numbers $(\phi_i;i_1,\dots, i_k;j)$ such that $i_1,\dots, i_k<i$ and $\phi_i$ follows from $\phi_{i_1},\dots,\phi_{i_k}$ using rule~$R_j$;
+  \end{itemize}
+where we view strings in $\{0,1\}^n$ as numbers in the interval $[0,2^n-1]$;  
+for formalizing $C$ in the propositional calculus, we use variables for every vertex of $C$ and clauses expressing that the values correspond to the gates at the vertices.
+\end{definition}
+
+We denote by $Res$ the resolution proof system.
+
+\begin{theorem}
+$[Res,G_i]^m$ is polynomially equivalent to $G_{i+1}$ for $i\geq 1$, i.e., the two proof systems polynomially simulate each other.
+\end{theorem}
+
+The existence of the simulation of $[Res,G_i]^m$ by $G_{i+1}$ is proved by proving soundness of  $[Res,G_i]^m$ in $T^i_2$. It is well-known that provability of the soundness of a proof system $P$ in $T^i_2$ implies the existence of a polynomial simulation of $P$ by $G_i$, see~\cite{krajicek-pudlak}.
+
+\bigskip
+The opposite simulation is based on cut-elimination. Given a proof $\Pi$ in $G_{i+1}$, we eliminate all cuts with $\Sigma^q_{i+1}$ formulas. Thus the resulting proof $\Pi'$ is a proof in $G_i$. The proof has exponential size, if one uses substitutions instead of repeating parts of $\Pi$, and can be succinctly defined by a polynomial size circuit. To make an implicit proof from $\Pi'$, one has to solve a number of technical problems.
+
+
+\begin{thebibliography}{99}
+\bibitem{krajicek-implicit} J. Kraj\'i\v cek: Implicit proofs, J. of Symbolic Logic, 69(2), (2004), pp.387-397. 
+\bibitem{krajicek-pudlak} J. Kraj\'i\v cek and P. Pudl\'{a}k: "Quantified Propositional Calculi and Fragments of Bounded Arithmetic", Zeitschr. f. Mathematikal Logik u. Grundlagen d. Mathematik, Bd. 36(1), (1990), pp. 29-46. 
+\end{thebibliography}
+
+\end{talk}
+
+%----------------------------------
+
+  \begin{talk}[Susanna F. de Rezende, Aaron Potechin]{Kilian Risse}
+    {Clique Is Hard on Average for Sherali-Adams with Bounded
+    Coefficients}
+    {Risse, Kilian}
+    
+    \noindent
+    A fundamental problem of theoretical computer science is $k$-clique:
+  given an $n$-vertex graph, determine whether it contains a clique of
+  size $k$. This problem can be solved in time $O(n^k)$ by iterating
+  over all subsets of vertices of size $k$ and checking whether one of
+  them is a clique. This naïve algorithm is essentially the fastest
+  known; the constant in the exponent can be slightly
+  improved~\cite{NP85CplxSubgraph} but, assuming the exponential time
+  hypothesis~\cite{CHKX04LinearFPTreductions}, this linear dependence on
+  $k$ in the exponent is optimal in the worst-case.
+  
+  Besides studying $k$-clique in the worst-case, one may consider it in
+  the average-case setting. Suppose the given graph is an
+  Erd\H{o}s-Rényi graph with edge probability around the threshold of
+  containing a $k$-clique. Does $k$-clique require time $n^{\Omega(k)}$
+  on such graphs? Or, even less ambitiously, is there an algorithm
+  running in time $n^{o(k)}$ that decides the $n^\epsilon$-clique problem on
+  such graphs?  It is unlikely that the hardness of such average-case
+  questions can be based on worst-case hardness assumptions such as
+  $\textbf{P} \neq \textbf{NP}$ or the exponential time
+  hypothesis~\cite{BT06}. They are, in fact, being used as hardness
+  assumptions themselves: the \emph{planted clique conjecture} states
+  that $n^{1/2-\epsilon}$-clique requires time $n^{\Omega(\log n)}$ on
+  Erd\H{o}s-Rényi graphs with edge probability~$1/2$.
+  
+  In order to obtain evidence that the planted clique conjecture holds
+  we intend to prove it for bounded computational models. We consider
+  the Sherali-Adams proof system with bounded coefficients and show
+  that, for $k \leq 2 \log n$, it requires proofs of size
+  $n^{\Omega(k)}$ to refute the claim that a uniformly sampled graph
+  contains a clique of size $n^{0.1}$. This establishes a quantitative
+  version of the planted clique conjecture for all algorithms captured
+  by this proof system. Note that this proof system is incomparable to
+  resolution, as shown in~\cite{GHJMPRT22}. Previously similar results
+  have been shown for tree-like
+  resolution~\cite{BGLR12Parameterized,Lauria18} and for the
+  Nullstellensatz proof system without
+  dual-variables~\cite{Margulies08Thesis}.
+  
+  If we are only interested in refuting the existence of a smaller
+  clique, say of size $4 \log n$, then there are essentially optimal
+  $n^{\Omega(k)}$ average-case size lower bounds for regular
+  resolution~\cite{ABRLNR21,Pang21}. For resolution, there are two
+  average-case lower bounds that hold in different regimes: for
+  $n^{5/6} \ll k \le n/3$, Beame et al.~\cite{BIS07} proved an
+  average-case $\exp(n^{\Omega(1)})$ size lower bound and for
+  $k\leq n^{1/3}$, Pang~\cite{Pang21} proved a $2^{k^{1-o(1)}}$ lower
+  bound.  It is a long standing open problem, mentioned, e.g., in
+  ~\cite{BGLR12Parameterized}, to prove an unconditional $n^{\Omega(k)}$
+  resolution size lower bound for the unary encoding -- even in the
+  worst case.
+  
+  For the less usual binary encoding of the clique formula it is
+  somewhat straightforward to prove almost optimal $n^{\Omega(k)}$
+  resolution size lower bounds for the less usual binary encoding of the
+  $k$-clique formula \cite{LPRT17ComplexityRamsey} and these lower
+  bounds can even be extended to an $n^{\Omega(k)}$ lower bound for the
+  Res($s$) proof system for constant $s$~\cite{DGGM20}.
+  
+  An extended abstract previously appeared in the \emph{Proceedings of
+    the 64th Annual IEEE Symposium on Foundations of Computer Science
+    (FOCS '23)} \cite{DPR23}.
+    
+    \begin{thebibliography}{99}
+    
+      \bibitem{ABRLNR21}
+      Albert Atserias, Ilario Bonacina, Susanna~F. de~Rezende, Massimo Lauria, Jakob
+        Nordstr{\"{o}}m, and Alexander~A. Razborov.
+      \newblock Clique is hard on average for regular resolution.
+      \newblock {\em J. {ACM}}, 68(4):23:1--23:26, 2021.
+      
+      \bibitem{BHKKMP16clique}
+      Boaz Barak, Samuel Hopkins, Jonathan Kelner, Pravesh~K. Kothari, Ankur Moitra,
+        and Aaron Potechin.
+      \newblock A nearly tight sum-of-squares lower bound for the planted clique
+        problem.
+      \newblock {\em SIAM Journal on Computing}, 48(2):687--735, 2019.
+      
+      \bibitem{BIS07}
+      Paul Beame, Russell Impagliazzo, and Ashish Sabharwal.
+      \newblock The resolution complexity of independent sets and vertex covers in
+        random graphs.
+      \newblock {\em Comput. Complex.}, 16(3):245--297, 2007.
+      
+      \bibitem{BGLR12Parameterized}
+      Olaf Beyersdorff, Nicola Galesi, Massimo Lauria, and Alexander~A. Razborov.
+      \newblock Parameterized bounded-depth {F}rege is not optimal.
+      \newblock {\em ACM Transactions on Computation Theory}, 4(3):7:1--7:16,
+        September 2012.
+      \newblock Preliminary version in \emph{ICALP~'11}.
+      
+      \bibitem{BT06}
+      Andrej Bogdanov and Luca Trevisan.
+      \newblock On worst-case to average-case reductions for {NP} problems.
+      \newblock {\em {SIAM} J. Comput.}, 36(4):1119--1159, 2006.
+      
+      \bibitem{CHKX04LinearFPTreductions}
+      Jianer Chen, Xiuzhen Huang, Iyad~A. Kanj, and Ge~Xia.
+      \newblock Linear {FPT} reductions and computational lower bounds.
+      \newblock In {\em Proceedings of the 36th Annual ACM Symposium on Theory of
+        Computing ({STOC}~'04)}, pages 212--221, June 2004.
+      
+      \bibitem{CHKX06}
+      Jianer Chen, Xiuzhen Huang, Iyad~A. Kanj, and Ge~Xia.
+      \newblock Strong computational lower bounds via parameterized complexity.
+      \newblock {\em J. Comput. Syst. Sci.}, 72(8):1346–1367, dec 2006.
+      
+      \bibitem{DGGM20}
+      Stefan~S. Dantchev, Nicola Galesi, Abdul Ghani, and Barnaby Martin.
+      \newblock Proof complexity and the binary encoding of combinatorial principles.
+      \newblock {\em CoRR}, abs/2008.02138, 2020.
+      
+      \bibitem{DM13}
+      Stefan~S. Dantchev and Barnaby Martin.
+      \newblock Rank complexity gap for lov{\'{a}}sz-schrijver and sherali-adams
+        proof systems.
+      \newblock {\em Comput. Complex.}, 22(1):191--213, 2013.
+      
+      \bibitem{DPR23}
+      Susanna~F. de~Rezende, Aaron Potechin, and Kilian Risse.
+      \newblock Clique is hard on average for unary sherali-adams.
+      \newblock In {\em 2023 IEEE 64th Annual Symposium on Foundations of Computer
+        Science (FOCS)}, pages 12--25, 2023.
+      
+      \bibitem{DF95FPTandCompletenessII}
+      Rodney Downey and Michael~R. Fellows.
+      \newblock Fixed-parameter tractability and completeness {II}: {C}ompleteness
+        for {W[1]}.
+      \newblock {\em Theoretical Computer Science A}, 141(1--2):109--131, April 1995.
+      
+      \bibitem{GHJMPRT22}
+      Mika G{\"{o}}{\"{o}}s, Alexandros Hollender, Siddhartha Jain, Gilbert Maystre,
+        William Pires, Robert Robere, and Ran Tao.
+      \newblock Separations in proof complexity and {TFNP}.
+      \newblock In {\em 63rd {IEEE} Annual Symposium on Foundations of Computer
+        Science, {FOCS} 2022, Denver, CO, USA, October 31 - November 3, 2022}, pages
+        1150--1161. {IEEE}, 2022.
+      
+      \bibitem{GHA02proofs}
+      Dima Grigoriev, Edward~A. Hirsch, and Dmitrii~V. Pasechnik.
+      \newblock Complexity of semi-algebraic proofs.
+      \newblock In {\em STACS 2002}, pages 419--430, Berlin, Heidelberg, 2002.
+        Springer Berlin Heidelberg.
+      
+      \bibitem{IP01Complexity}
+      Russell Impagliazzo and Ramamohan Paturi.
+      \newblock On the complexity of \mbox{$k$-{SAT}}.
+      \newblock {\em Journal of Computer and System Sciences}, 62(2):367--375, March
+        2001.
+      \newblock Preliminary version in \emph{CCC~'99}.
+      
+      \bibitem{kmow17anycsp}
+      Pravesh~K. Kothari, Ryuhei Mori, Ryan O’Donnell, and David Witmer.
+      \newblock Sum of squares lower bounds for refuting any csp.
+      \newblock In {\em Proceedings of the 49th Annual ACM SIGACT Symposium on Theory
+        of Computing}, STOC 2017, page 132–145, New York, NY, USA, 2017.
+        Association for Computing Machinery.
+      
+      \bibitem{Lauria18}
+      Massimo Lauria.
+      \newblock Cliques enumeration and tree-like resolution proofs.
+      \newblock {\em Inf. Process. Lett.}, 135:62--67, 2018.
+      
+      \bibitem{LPRT17ComplexityRamsey}
+      Massimo Lauria, Pavel Pudl\'{a}k, Vojt\v{e}ch R\"{o}dl, and Neil Thapen.
+      \newblock The complexity of proving that a graph is {R}amsey.
+      \newblock {\em Combinatorica}, 37(2):253--268, April 2017.
+      \newblock Preliminary version in \emph{ICALP~'13}.
+      
+      \bibitem{Margulies08Thesis}
+      Susan Margulies.
+      \newblock {\em Computer Algebra, Combinatorics, and Complexity: {H}ilbert's
+        {N}ullstellensatz and {NP}-complete Problems}.
+      \newblock PhD thesis, University of California, Davis, 2008.
+      
+      \bibitem{MPW15SumOfSquaresPlantedClique}
+      Raghu Meka, Aaron Potechin, and Avi Wigderson.
+      \newblock Sum-of-squares lower bounds for planted clique.
+      \newblock In {\em Proceedings of the 47th Annual ACM Symposium on Theory of
+        Computing ({STOC}~'15)}, pages 87--96, June 2015.
+      
+      \bibitem{NP85CplxSubgraph}
+      Jaroslav Ne\v{s}et\v{r}il and Svatopluk Poljak.
+      \newblock On the complexity of the subgraph problem.
+      \newblock {\em Commentationes Mathematicae Universitatis Carolinae},
+        026(2):415--419, 1985.
+      
+      \bibitem{Pang21}
+      Shuo Pang.
+      \newblock Large clique is hard on average for resolution.
+      \newblock In Rahul Santhanam and Daniil Musatov, editors, {\em Computer Science
+        - Theory and Applications - 16th International Computer Science Symposium in
+        Russia, {CSR} 2021, Sochi, Russia, June 28 - July 2, 2021, Proceedings},
+        volume 12730 of {\em Lecture Notes in Computer Science}, pages 361--380.
+        Springer, 2021.
+      
+      \bibitem{Pang21-sos}
+      Shuo Pang.
+      \newblock {SOS} lower bound for exact planted clique.
+      \newblock In Valentine Kabanets, editor, {\em 36th Computational Complexity
+        Conference, {CCC} 2021, July 20-23, 2021, Toronto, Ontario, Canada (Virtual
+        Conference)}, volume 200 of {\em LIPIcs}, pages 26:1--26:63. Schloss Dagstuhl
+        - Leibniz-Zentrum f{\"{u}}r Informatik, 2021.
+    
+    %% ...
+    
+    \end{thebibliography}
+    
+    \end{talk}
+    
+
+%---------------------------------------------------
+\begin{talk}{Robert Robere}
+  {Propositional Proof Complexity and TFNP}
+  {Robere, Robert}
+
+\noindent
+A recent line of work \cite{BussJ12, Goos2018, Goos22b, Goos22a, Buss22, DavisRobere23, Li24, Hubacek24} has demonstrated many deep connections between propositional proof systems and total $\mathsf{NP}$ search problems ($\mathsf{TFNP}$). The basic correspondence allows us to associate a total search problem $S$ with each propositional proof system $P$ such that the following holds: for every tautology $T$, $T$ has a short proof in $P$ if and only if proving $T$ can be “efficiently reduced” to proving the totality of $S$. This allows us to define a theory of reducibility for proof systems that is analogous to classical reducibility in complexity theory, it has led to the resolution of a number of open problems in both proof complexity and the theory of $\mathsf{TFNP}$, and also has suggested new directions of study in both of these areas. 
+
+In this talk we will survey this connection, the recent progress that has been made, and outline some next steps for the development to take.
+
+\begin{thebibliography}{99}
+  \bibitem{Buss22}
+Sam Buss, Noah Fleming, and Russell Impagliazzo.
+\newblock Tfnp characterizations of proof systems and monotone circuits.
+\newblock {\em Electron. Colloquium Comput. Complex.}, {TR22-141}, 2022.
+
+\bibitem{BussJ12}
+Samuel~R. Buss and Alan~S. Johnson.
+\newblock Propositional proofs and reductions between {NP} search problems.
+\newblock {\em Annals of Pure and Applied Logic}, 163(9):1163--1182, 2012.
+
+\bibitem{DavisRobere23}
+Ben Davis and Robert Robere.
+\newblock Colourful {TFNP} and propositional proofs.
+\newblock In Amnon Ta{-}Shma, editor, {\em 38th Computational Complexity
+  Conference, {CCC} 2023, July 17-20, 2023, Warwick, {UK}}, volume 264 of {\em
+  LIPIcs}, pages 36:1--36:21. Schloss Dagstuhl - Leibniz-Zentrum f{\"{u}}r
+  Informatik, 2023.
+
+\bibitem{Goos22b}
+Mika G{\"o}{\"o}s, Alexandros Hollender, Siddhartha Jain, Gilbert Maystre,
+  William Pires, Robert Robere, and Ran Tao.
+\newblock Further collapses in {TFNP}.
+\newblock In {\em Proceedings of the 37th Computational Complexity Conference
+  (CCC)}, pages 33:1--33:15, 2022.
+
+\bibitem{Goos22a}
+Mika G{\"{o}}{\"{o}}s, Alexandros Hollender, Siddhartha Jain, Gilbert Maystre,
+  William Pires, Robert Robere, and Ran Tao.
+\newblock Separations in proof complexity and {TFNP}.
+\newblock {\em Electron. Colloquium Comput. Complex.}, {TR22-058}, 2022.
+
+\bibitem{Goos2018}
+Mika G{\"o}{\"o}s, Pritish Kamath, Robert Robere, and Dmitry Sokolov.
+\newblock Adventures in monotone complexity and {TFNP}.
+\newblock In {\em Proceedings of the 10th Innovations in Theoretical Computer
+  Science Conference (ITCS)}, volume 124, pages 38:1--38:19, 2018.
+
+\bibitem{Hubacek24}
+Pavel Hub{\'{a}}cek, Erfan Khaniki, and Neil Thapen.
+\newblock {TFNP} intersections through the lens of feasible disjunction.
+\newblock In Venkatesan Guruswami, editor, {\em 15th Innovations in Theoretical
+  Computer Science Conference, {ITCS} 2024, January 30 to February 2, 2024,
+  Berkeley, CA, {USA}}, volume 287 of {\em LIPIcs}, pages 63:1--63:24. Schloss
+  Dagstuhl - Leibniz-Zentrum f{\"{u}}r Informatik, 2024.
+
+\bibitem{Li24}
+Yuhao Li, William Pires, and Robert Robere.
+\newblock Intersection classes in {TFNP} and proof complexity.
+\newblock In Venkatesan Guruswami, editor, {\em 15th Innovations in Theoretical
+  Computer Science Conference, {ITCS} 2024, January 30 to February 2, 2024,
+  Berkeley, CA, {USA}}, volume 287 of {\em LIPIcs}, pages 74:1--74:22. Schloss
+  Dagstuhl - Leibniz-Zentrum f{\"{u}}r Informatik, 2024.
+\end{thebibliography}
+
+
+\end{talk}
+% ------------------------
+
+\begin{talk}[Mika G\"{o}\"{o}s, Artur Riazanov, Dmitry Sokolov]{Anastasia Sofronova}
+  {Top-Down Lower Bounds for Depth-Four Circuits}
+  {Sofronova, Anastasia}
+  
+  \noindent
+  We present a top-down lower-bound method for depth-$4$  boolean circuits. In particular, we give a new proof of the well-known result that the parity function requires {depth-$4$} circuits of size exponential in $n^{1/3}$. Our proof is an application of robust sunflowers and block unpredictability.
+  
+  The working complexity theorist has three main weapons in their arsenal when proving lower bounds against small-depth boolean circuits (consisting of $\land$, $\lor$, $\neg$ gates of unbounded fanin). The most wildly successful ones are the \emph{random restriction} method~\cite{Furst1984,Ajtai1983} and the \emph{polynomial approximation} method~\cite{Razborov1987,Smolensky1987}. The random restriction method, in particular, is applied {\bf\itshape bottom-up}: it starts by analysing the bottom-most layer of gates next to input variables and finds a way to simplify the circuit so as to reduce its depth by one. The third main weapon, which is the subject of this work, is the {\bf\itshape top-down} method: starting at the top (output) gate we walk down the circuit in search of a mistake in the computation.
+  
+  It has been an open problem (posed in~\cite{Hastad1995,Meir2019}) to prove exponential lower bounds for depth-4 circuits by a top-down argument. We develop such a lower-bound method in this work and use it to prove a lower bound for the parity function. It has been long known using bottom-up methods that the depth-4 complexity of $n$-bit parity is $\smash{2^{\Theta(n^{1/3})}}$~\cite{Yao1985,Hastad1987}. We recover a slightly weaker bound.
+  \begin{theorem}
+  Every depth-$4$ circuit computing the $n$-bit parity requires $2^{n^{1/3-o(1)}}$ gates.
+  \end{theorem}
+  
+  Our top-down proof of this theorem is a relatively simple application of two known techniques: robust sunflowers~\cite{Rossman2014,Alweiss2021,Rao2020} and unpredictability from partial information~\cite{Meir2019,Smal2018,Viola2021}, which we generalise to blocks of coordinates (obtaining essentially best possible parameters).
+  
+  A major motivation for the further development of top-down methods is that the method is, in a precise sense, \emph{complete} for constant-depth circuits, in that it can be used to prove tight lower bounds (up to polynomial factors) for \emph{any} boolean function. The same is not known to hold for the aforementioned bottom-up techniques. For example, there is currently no known bottom-up proof for the depth-3 circuit lower bound that underlies the oracle separation $\textsf{AM}\not\subseteq \Sigma_2\textsf{P}$~\cite{Santha1989,Ko1990,Bohler2006}. We suspect more generally that top-down methods could prove useful in settings where the bottom-up methods have failed so far, such as proving lower bounds against $\mathsf{AC}^0\circ\oplus$ circuits computing inner-product~\cite{Cheraghchi2018,Ezra2022,Huang2022,Servedio2012} or against the polynomial hierarchy in communication complexity~\cite{Babai1986}.
+  
+  \begin{thebibliography}{99}
+  
+  \bibitem{Ajtai1983}
+  Ajtai, M. {$\Sigma^1_1$}-Formulae on finite structures. {\em Annals Of Pure And Applied Logic}. \textbf{24}, 1-48 (1983)
+  
+  \bibitem{Alweiss2021}Alweiss, R., Lovett, S., Wu, K. \& Zhang, J. Improved bounds for the sunflower lemma. {\em Annals Of Mathematics}. \textbf{194} (2021)
+  
+  \bibitem{Babai1986}Babai, L., Frankl, P. \& Simon, J. Complexity Classes in Communication Complexity Theory. {\em Proceedings Of The 27th Symposium On Foundations Of Computer Science (FOCS)}. pp. 337-347 (1986)
+  
+  \bibitem{Bohler2006}Böhler, E., Glaßer, C. \& Meister, D. Error-Bounded Probabilistic Computations Between MA and AM. {\em Journal Of Computer And System Sciences}. \textbf{72}, 1043-1076 (2006)
+  
+  \bibitem{Cheraghchi2018}Cheraghchi, M., Grigorescu, E., Juba, B., Wimmer, K. \& Xie, N. AC0 $\circ$ MOD2 lower bounds for the Boolean Inner Product. {\em Journal Of Computer And System Sciences}. \textbf{97} pp. 45-59 (2018)
+  
+  \bibitem{Ezra2022}Ezra, M. \& Rothblum, R. Small Circuits Imply Efficient Arthur-Merlin Protocols. {\em Proceedings Of The 13th Innovations In Theoretical Computer Science Conference (ITCS)}. \textbf{215} pp. 67:1-67:16 (2022)
+  
+  \bibitem{Furst1984}Furst, M., Saxe, J. \& Sipser, M. Parity, circuits, and the polynomial-time hierarchy. {\em Mathematical Systems Theory}. \textbf{17}, 13-27 (1984)
+  
+  \bibitem{Hastad1987}H\aa stad, J. Computational Limitations for Small Depth Circuits. (MIT,1987)
+  
+  \bibitem{Hastad1995}H\aa stad, J., Jukna, S. \& Pudlák, P. Top-down lower bounds for depth-three circuits. {\em Computational Complexity}. \textbf{5}, 99-112 (1995)
+  
+  \bibitem{Huang2022}Huang, X., Ivanov, P. \& Viola, E. Affine Extractors and AC0-Parity. {\em Approximation, Randomization, And Combinatorial Optimization. Algorithms And Techniques, APPROX/RANDOM 2022}. \textbf{245} pp. 9:1-9:14 (2022)
+  
+  \bibitem{Ko1990}Ko, K. Separating and collapsing results on the relativized probabilistic polynomial-time hierarchy. {\em Journal Of The ACM}. \textbf{37}, 415-438 (1990)
+  
+  \bibitem{Meir2019}Meir, O. \& Wigderson, A. Prediction from Partial Information and Hindsight, with Application to Circuit Lower Bounds. {\em Computational Complexity}. \textbf{28}, 145-183 (2019)
+  
+  \bibitem{Rao2020}Rao, A. Coding for Sunflowers. {\em Discrete Analysis}. \textbf{2020} (2020)
+  
+  \bibitem{Razborov1987}Razborov, A. Lower bounds on the size of bounded depth circuits over a complete basis with logical addition. {\em Mathematical Notes Of The Academy Of Sciences Of The USSR}. \textbf{41}, 333-338 (1987)
+  
+  \bibitem{Rossman2014}Rossman, B. The Monotone Complexity of k-Clique on Random Graphs. {\em SIAM Journal On Computing}. \textbf{43}, 256-279 (2014)
+  
+  \bibitem{Santha1989}Santha, M. Relativized Arthur–Merlin versus Merlin–Arthur Games. {\em Information And Computation}. \textbf{80}, 44-49 (1989)
+  
+  \bibitem{Servedio2012}Servedio, R. \& Viola, E. On a special case of rigidity. {\em Electron. Colloquium Comput. Complex.}. \textbf{TR12-144} (2012), https://eccc.weizmann.ac.il/report/2012/144
+  
+  \bibitem{Smal2018}Smal, A. \& Talebanfard, N. Prediction from partial information and hindsight, an alternative proof. {\em Inf. Process. Lett.}. \textbf{136} pp. 102-104 (2018), https://doi.org/10.1016/j.ipl.2018.04.011
+  
+  \bibitem{Smolensky1987}Smolensky, R. Algebraic methods in the theory of lower bounds for Boolean circuit complexity. {\em Proceedings Of The 19th Symposium On Theory Of Computing (STOC)}. (1987)
+  
+  \bibitem{Viola2021}Viola, E. AC0 Unpredictability. {\em ACM Trans. Comput. Theory}. \textbf{13}, 5:1-5:8 (2021), https://doi.org/10.1145/3442362
+  
+  \bibitem{Yao1985}Yao, A. Separating the polynomial-time hierarchy by oracles. {\em 26th Annual Symposium On Foundations Of Computer Science (SFCS)}. (1985)
+  
+  
+  %% ...
+  
+  \end{thebibliography}
+  
+  \end{talk}
+
+
+%---------------------------------------------------
+
+\begin{talk}{Dmitry Sokolov}
+  {Some Applications of Sunflowers}
+  {Sokolov, Dmitry}
+
+\noindent 
+
+Sunflowers is an extremely powerful object that is widely used in theoretical computer science.
+The original notion was defined by Erd\H{o}s, Rado \cite{ER60}.
+\begin{definition}
+    $(k, \ell)$-sunflower:
+    \begin{itemize}
+        \item $S_1, S_2, S_3, \dots, S_{\ell} \subseteq \{0, 1\}^n$ of size $k$;
+        \item $Z \coloneqq \bigcap S_i$;
+        \item $\forall i, j ~~~ S_i \cap S_j = Z$.
+    \end{itemize}
+\end{definition}
+And recently generalization of it was considered by Rossman \cite{Ross14}.
+\begin{definition}
+    $(p, \varepsilon)$-robust sunflower:
+        \begin{itemize}
+            \item $S_1, S_2, S_3, \dots \subseteq \{0, 1\}^n$ of size $k$;
+            \item $Z \coloneqq \bigcap S_i$;
+            \item $\Pr\limits_{W \sim \mathbf{U}_p}[\exists i, W \subseteq (S_i \setminus Z)] \ge 1 -
+                \varepsilon$.
+        \end{itemize}
+\end{definition}
+
+At first viewing, it is not clear why \emph{robust sunflowers} is the more general notion of usual
+sunflowers. However, through applications of sunflowers, one can note that properties that we typically
+\emph{want} from sunflowers are exactly what we see in the definition of robust version. In this talk, we
+will try to show it and discuss the following questions:
+\begin{itemize}
+    \item For which problems sunflowers and robust sunflowers are useful?
+    \item What is the \emph{spreadness} of a set? Is it useful to think about spreadness instead of
+        sunflowers?
+\end{itemize}
+
+During this talk, we consider the following applications:
+\begin{itemize}
+    \item monotone circuit lower bounds for clique \cite{Razb85, AB87};
+    \item lower bounds for $\mathrm{Res}(k)$-proofs of random formulas via sunflowers;
+    \item depth-$3$ circuit lower bounds via sunflowers (simplification of \cite{GRSS23}).
+\end{itemize}
+
+\begin{thebibliography}{99}
+
+  \bibitem{AB87}
+  Noga Alon and Ravi~B. Boppana.
+  \newblock The monotone circuit complexity of boolean functions.
+  \newblock {\em Comb.}, 7(1):1--22, 1987.
+  
+  \bibitem{ER60}
+  P.~Erd\H{o}s and R.~Rado.
+  \newblock Intersection theorems for systems of sets.
+  \newblock {\em Journal of the London Mathematical Society}, 35:85--90, 1960.
+  
+  \bibitem{GRSS23}
+  Mika G{\"{o}}{\"{o}}s, Artur Riazanov, Anastasia Sofronova, and Dmitry Sokolov.
+  \newblock Top-down lower bounds for depth-four circuits.
+  \newblock In {\em 64th {IEEE} Annual Symposium on Foundations of Computer
+    Science, {FOCS} 2023, Santa Cruz, CA, USA, November 6-9, 2023}, pages
+    1048--1055. {IEEE}, 2023.
+  
+  \bibitem{Razb85}
+  Alexander~A. Razborov.
+  \newblock Lower bounds on the monotone complexity of some boolean functions.
+  \newblock {\em Dokl. Akad. Nauk SSSR}, 281:798--801, 1985.
+  
+  \bibitem{Ross14}
+  Benjamin Rossman.
+  \newblock The monotone complexity of k-clique on random graphs.
+  \newblock {\em {SIAM} J. Comput.}, 43(1):256--279, 2014.
+  
+
+\end{thebibliography}
+
+\end{talk}
+
+%-------------------------------
+
+ \begin{talk}[Leszek Aleksander Ko\l{}odziejczyk]{Neil Thapen}
+        {Strength of the Dominance Rule}
+        {Thapen, Neil}
+        
+        \noindent
+       
+        It has become standard that,
+when a SAT solver decides that a CNF $\Gamma$ is unsatisfiable, 
+it produces a certificate of unsatisfiability in the form of a refutation of $\Gamma$ in some  proof system.
+The system typically used is DRAT,
+which is equivalent to extended resolution (ER)
+-- for example, until this year DRAT refutations were required 
+in the annual SAT competition.
+
+Recently Bogaerts et al.~\cite{bgmn} introduced a new proof system, associated with the tool VeriPB,
+which is at least as strong as DRAT 
+and is further able to handle certain symmetry-breaking techniques. 
+We show that this system simulates the proof system $G_1$, 
+which allows limited reasoning with QBFs
+and forms the first level above ER in a natural hierarchy
+of proof systems~\cite{kp}. This hierarchy is not known to be strict,
+but nevertheless this  is evidence that the system of~\cite{bgmn}  is plausibly
+strictly stronger than ER and DRAT.
+In the other direction, we show that symmetry-breaking for a single symmetry 
+can be handled inside ER.
+
+        \begin{thebibliography}{99}
+        
+        %% ...
+    
+        \bibitem{bgmn} 
+B. Bogaerts, S. Gocht, C. McCreesh and J. Nordström. 
+{\it Certified dominance and symmetry breaking for combinatorial optimisation.}
+Journal of Artificial Intelligence Research, 77:1539–1589, 2023.
+
+
+\bibitem{kp} 
+J. Krajícek and P. Pudlák. 
+{\it Quantified propositional calculi and fragments of bounded arithmetic.}
+Z. Math. Logik Grundlag. Math., 36(1):29–46, 1990.
+        
+        \end{thebibliography}
+        
+\end{talk}
+
+%%---------------------------------------------------
+
+    \begin{talk}[Pavel Hub\'{a}\v{c}ek, Erfan Khaniki]{Neil Thapen}
+           {TFNP Intersections and Feasible Disjunction}
+           {Thapen, Neil}
+           
+           \noindent
+
+           The complexity class CLS was introduced by Daskalakis and Papadimitriou~\cite{cls} to capture the computational complexity of important TFNP problems solvable by local search over continuous domains and, thus,
+lying in both PLS and PPAD.
+It was later shown that, e.g., the problem of computing fixed points guaranteed by Banach's fixed point theorem is CLS-complete by Daskalakis et al.~\cite{dtz_18}.
+Recently, Fearnley et al.~\cite{fghs_23} disproved the plausible conjecture of Daskalakis and Papadimitriou that CLS is a proper subclass of PLS $\cap$ PPAD  by proving that CLS $=$ PLS $\cap$ PPAD.
+
+To study the possibility of other surprising collapses in TFNP, we connect classes formed as the intersection of existing subclasses of TFNP with the phenomenon of \emph{feasible disjunction} in propositional proof complexity;
+where a proof system has the feasible disjunction property if, whenever a disjunction $F  \vee  G$ has a small proof,
+and $F$ and $G$ have no variables in common, then either $F$ or $G$ has a small proof~\cite{kra_95, pud_03}.
+We study feasible disjunction for various systems and notions of smallness, in particular
+extending work of Hakoniemi~\cite{hak} to show a kind of feasible
+disjunction for size and degree for Sherali Adams.
+Using this we separate the classes formed by intersecting the classical subclasses PLS, PPA, PPAD, PPADS, PPP and CLS,
+relying extensively on the lower bounds and  connections with proof systems
+shown recently by G\"o\"os et al.~\cite{goos}.
+We also give the first examples of proof systems which have the feasible interpolation property, but not the feasible disjunction property.
+
+This work has appeared as~\cite{hub}.
+          
+       
+           \begin{thebibliography}{99}
+           
+            \bibitem{cls} 
+            Constantinos Daskalakis and Christos H. Papadimitriou. 
+            {\it Continuous local search.}
+            In Proceedings of the Annual ACM-SIAM
+            Symposium on Discrete Algorithms, SODA 2011, pp. 790–804, 2011.
+            
+            \bibitem{dtz_18} 
+            Constantinos Daskalakis, Christos Tzamos and Manolis Zampetakis. 
+            {\it A converse to Banach’s fixed point theorem and its CLS-completeness.}
+            In Proceedings of the ACM
+            SIGACT Symposium on Theory of Computing, STOC 2018, pp. 44–50, 2018.
+            
+            \bibitem{fghs_23}
+            John Fearnley, Paul Goldberg, Alexandros Hollender and Rahul Savani. 
+            {\it The complexity of gradient descent}: CLS $=$ PPAD $\cap$ PLS. 
+            Journal of the ACM, 70(1):7:1–7:74, 2023.
+            
+            \bibitem{goos}
+            Mika G\"o\"os, Alexandros Hollender, Siddhartha Jain, Gilbert Maystre, William Pires,
+            Robert Robere and Ran Tao. 
+            {\it Separations in proof complexity and TFNP.} 
+            In Proceedings of the IEEE Annual Symposium on Foundations of Computer Science, FOCS 2022,
+            pp. 1150–1161, 2022.
+            
+            \bibitem{hak}
+            Tuomas Hakoniemi. 
+            Size bounds for algebraic and semialgebraic proof systems. PhD
+            thesis, Universitat Politecnica de Catalunya, 2022.
+            
+            \bibitem{hub}
+            Pavel Hubáček, Erfan Khaniki and Neil Thapen. 
+            {\it TFNP Intersections Through the Lens of Feasible Disjunction.} 
+            In Innovations in Theoretical Computer Science Conference (ITCS 2024), LIPIcs Vol 287, pp. 63:1-63:24, 
+            2024.
+            
+            \bibitem{kra_95}
+            Jan Kraj\'{i}\v{c}ek.
+            Bounded arithmetic, propositional logic, and complexity theory.
+            Volume 60 of Encyclopedia of mathematics and its applications,
+            Cambridge University Press, 1995.
+            
+            \bibitem{pud_03}
+            Pavel Pudl\'{a}k. 
+            {\it On reducibility and symmetry of disjoint NP pairs.}
+            Theoretical Computer Science, 295:323–339, 2003.
+            
+       
+           
+           \end{thebibliography}
+           
+   \end{talk}
+   
+
+%% -------------------------------------------------------------------------------
+
+\begin{talk}[Lisa-Marie Jaser]{Jacobo Tor\'{a}n}
+  {Pebble Games and Algebraic Proof Systems}
+  {Toran, Jacobo}
+  
+  \noindent
+  Analyzing refutations of  the well known
+    pebbling formulas $\peb(G)$    we prove some new strong connections between pebble games and algebraic proof system,  showing that
+    there is a parallelism between the reversible, black and black-white pebbling games on one side, and
+    the three algebraic proof systems Nullstellensatz, Monomial Calculus \cite{BerkholzG15} 
+    and Polynomial Calculus  on the other side.  
+
+We prove that very similar  results to those given in \cite{RezendeMNR21} for Nullstellensatz and reversible pebbling
+are also true for the case of Monomial Calculus and black pebbling. More concretely we show
+that for any DAG $G$ with a single sink, if there is a MC refutation 
+for  $\peb(G)$ having simultaneously degree $s$ and size $t$ 
+then there is a black pebbling strategy on $G$ with space $s$ and time $t+s$.
+This is done by proving that any Horn formula has a very especial kind of MC
+refutation, which we call input monomial refutation since it is the same concept
+as an input refutation in Resolution. 
+
+For the other direction, we  show  that from a black pebbling strategy for $G$ with space $s$ and time $t$ it is possible to extract
+a MC refutation 
+for  $\peb(G)$ having simultaneously degree $s$ and size $ts$. 
+The small loss in the time parameter compared to the results in \cite{RezendeMNR21} comes from the fact that size complexity is measured in slight 
+different ways in NS and MC.
+Using these results we are able to show degree separations between NS and MC
+as well as strong  degree-size tradeoffs for MC in the same spirit as those in \cite{RezendeMNR21}. The results also show that strong degree
+lower bounds for MC refutations do not imply exponential size 
+lower bounds as it happens in the PC proof system \cite{IPS99LowerBounds}.
+
+
+The degrees of  the refutation for  pebbling formulas in NS and  MS correspond exactly to the space in reversible and black games respectively.
+This is not the case for  PC degree and space
+in the black-white pebble game \cite{BCIP02Homogenization}. 
+We notice however that if instead of the degree we consider the 
+complexity measure of variable space, then  the connection still holds.
+For any single sink DAG $G$
+the variable space complexity of refuting $\peb(G)$ in each of the 
+algebraic proof systems NS, MC and PC is exactly the 
+space needed in a strategy for pebbling $G$ in each of the three versions
+reversible, black and black-white of the pebble game.
+This results allow us to apply known separations between the pebbling space needed in the different versions of the the game, in order to obtain
+separations in the variable space measure between the different proof systems.
+
+
+
+  
+  \begin{thebibliography}{99}
+  
+    \bibitem{BerkholzG15}
+Christoph Berkholz and Martin Grohe.
+\newblock Limitations of algebraic approaches to graph isomorphism testing.
+\newblock In {\em {ICALP} 2015}, volume 9134 of {\em Lecture Notes in Computer
+  Science}, pages 155--166. Springer, 2015.
+
+\bibitem{BCIP02Homogenization}
+Joshua {Buresh-Oppenheim}, Matthew Clegg, Russell Impagliazzo, and Toniann
+  Pitassi.
+\newblock Homogenization and the polynomial calculus.
+\newblock {\em Computational Complexity}, 11(3-4):91--108, 2002.
+\newblock Preliminary version in \emph{ICALP~'00}.
+
+\bibitem{RezendeMNR21}
+Susanna~F. de~Rezende, Or~Meir, Jakob Nordstr{\"{o}}m, and Robert Robere.
+\newblock Nullstellensatz size-degree trade-offs from reversible pebbling.
+\newblock {\em Comput. Complex.}, 30(1):4, 2021.
+
+\bibitem{IPS99LowerBounds}
+Russell Impagliazzo, Pavel Pudl{\'a}k, and Ji{\v{r}}\'i Sgall.
+\newblock Lower bounds for the polynomial calculus and the {G}r{\"o}bner basis
+  algorithm.
+\newblock {\em Computational Complexity}, 8(2):127--144, 1999.
+
+    
+  %% ...
+  
+  \end{thebibliography}
+  
+  \end{talk}
+  
+
+   
+  %-------------------------------------------------------------------------------
+
+
+
+    \begin{talk}[Tuomas Hakoniemi, Nutan Limaye]{Iddo Tzameret}
+        {Functional Lower Bounds in Algebraic Proofs: Symmetry, Lifting, and Barriers}
+        {Tzameret, Iddo}
+        
+        \noindent
+       
+        \input{}
+
+
+        Strong algebraic proof systems such as IPS (Ideal Proof System; 
+Grochow-Pitassi~\cite{GP18}) offer a general model for 
+deriving polynomials in an ideal and refuting unsatisfiable 
+propositional formulas, subsuming most standard propositional 
+proof systems. One of the most successful  approach to this day for lower bounding the size of 
+IPS refutations is the Functional Lower Bound Method (Forbes, 
+Shpilka, Tzameret and Wigderson~\cite{FSTW21}), which reduces 
+the hardness of refuting a polynomial equation $f(\bar{x})=0$ with 
+no Boolean solutions to the hardness of computing the function 
+${1}/{f(\bar{x})}$ over the Boolean cube with an algebraic circuit. 
+We consider this approach in general terms, and attempt to understand how far it can lead with respect to lower bounds, and where it cannot reach.
+
+In particular, using symmetry we provide a general way to obtain many new hard instances against fragments of IPS via the functional lower bound method. This includes hardness over finite fields and  hard 
+instances different from Subset Sum variants both of 
+which were unknown before, and stronger constant-depth lower bounds.
+Conversely, 
+we expose the limitation of this method by showing it 
+\mbox{cannot} lead to proof complexity lower bounds for any 
+hard \textit{Boolean} instance (e.g., CNFs) for any
+sufficiently strong proof systems. Specifically, we discuss the following new results: 
+
+\begin{description}[align=left]
+\item [\textbf{Nullstellensatz degree lower bounds using 
+    symmetry}] Extending \cite{FSTW21} we \\ show  that every unsatisfiable symmetric polynomial with $n$ variables 
+    requires degree $>n$ refutations
+    (over sufficiently large characteristic).
+    Using symmetry again, by characterising the
+    ${n}/{2}$-homogeneous slice appearing in  refutations, we show that  
+    unsatisfiable \emph{invariant} polynomials of degree ${n}/{2}$ require     degree $\ge n$ refutations.  
+
+\item [\textbf{Lifting to size lower bounds}] Lifting our Nullstellensatz  
+    degree bounds to  IPS-size lower bounds, we obtain exponential lower 
+    bounds for any  poly-logarithmic degree symmetric instance 
+    against IPS refutations
+    written as oblivious read-once algebraic programs (roABP-IPS).   
+    For invariant polynomials, we show lower bounds against roABP-IPS
+    and refutations written as multilinear formulas in the \emph{placeholder} IPS regime
+    (studied by Andrews-Forbes \cite{AF22}), where the hard instances
+    do not necessarily have small roABPs themselves, including over
+    \emph{positive characteristic} fields. This provides the first
+    IPS-fragment lower bounds over finite fields. 
+
+    By an adaptation of the work of Amireddy, Garg, Kayal, Saha and Thankey~\cite{AGK0T23}, we extend and strengthen the constant-depth IPS lower bounds obtained recently in Govindasamy, Hakoniemi and Tzameret~\cite{GHT22} which held only for multilinear proofs, to \emph{$\mathsf{poly}(\log \log n)$ individual degree} proofs. 
+    This is a natural and stronger constant depth proof system than in \cite{GHT22}, which admits small refutations for standard hard instances like the pigeonhole principle and Tseitin formulas.  
+
+\item [\textbf{Barriers for  Boolean instances}] 
+    While lower bounds against strong propositional proof
+    systems were the original motivation for studying algebraic     
+    proof systems in the 1990s \cite{BeameIKPP96,BussIKPRS96},   
+    we show that the functional lower bound method alone cannot establish any size lower bound for \textit{Boolean} instances for any sufficiently strong proof systems, and in particular, cannot lead to lower bounds against $\mathsf{AC}^0[p]$-Frege and $\mathsf{TC}^0$-Frege.  
+\end{description}
+
+
+
+Overall, this work wraps up to some extent research on IPS lower bounds via the functional lower bound method, showing how far it can be pushed, and where it cannot be applied. It generalises and improves previous work on IPS lower bounds obtained via the functional lower bound method in \cite{FSTW21,GHT22}. 
+We established size lower bounds for symmetric instances, and hard instances qualitatively different from previously known hard instances. This allows us also to show lower bounds over finite fields, which were open. 
+We then showed how to incorporate recent developments on constant-depth algebraic circuit lower bounds \cite{AGK0T23} in the setting of proof complexity. This enables us to improve the constant-depth IPS lower bounds in \cite{GHT22} to stronger fragments, namely IPS refutations of constant depth and $\mathsf{poly}(\log\log n)$-individual degrees. 
+As a corollary, we show a new finite field functional lower bound for \emph{multilinear formulas} which may be of independent interest.
+
+As for the barrier we uncovered, it is now evident that the functional lower bound method \emph{alone} cannot be used to settle the long-standing open problems about the proof complexity of  constant-depth propositional proofs with counting gates. This does not rule out however the ability of IPS lower bounds, and the IPS ``paradigm''  in general, to progress on these open problems, since  other relevant methods may be found helpful (the meta-complexity method established in \cite{ST21}, the lower bounds for multiples method \cite{FSTW21,AF22}, and the noncommutative reduction \cite{LTW18}). Moreover, our barrier only shows that we cannot hope to use
+a single non-Boolean unsatisfiable axiom $f(\bar{x})=0$ and 
+consider the function ${1}/{f(\bar{x})}$ over the Boolean cube
+to obtain a CNF IPS lower bound (whenever the CNF is semantically
+implied from $f(\bar{x})=0$ over the Boolean cube). However, it does not rule out in
+general the use of a reduction to matrix rank, which is the backbone
+of many algebraic circuit lower bounds (as well as the functional lower bound method), and should potentially be
+helpful in proof complexity as well.
+
+A very interesting  problem that remains open is to prove CNF lower bounds using the functional method against
+fragments of IPS that sit below the reach of the barrier, namely fragments
+that cannot derive efficiently the conjunction of arbitrarily 
+many polynomials (that is, systems that are not sufficiently strong
+in the above terminology). 
+
+
+\begin{thebibliography}{99}
+        
+        %% ...
+        \bibitem{AGK0T23}
+Prashanth Amireddy, Ankit Garg, Neeraj Kayal, Chandan Saha, and Bhargav
+  Thankey.
+\newblock Low-depth arithmetic circuit lower bounds: Bypassing
+  set-multilinearization.
+\newblock In Kousha Etessami, Uriel Feige, and Gabriele Puppis, editors, {\em
+  50th International Colloquium on Automata, Languages, and Programming,
+  {ICALP} 2023, July 10-14, 2023, Paderborn, Germany}, volume 261 of {\em
+  LIPIcs}, pages 12:1--12:20. Schloss Dagstuhl - Leibniz-Zentrum f{\"{u}}r
+  Informatik, 2023.
+
+\bibitem{AF22}
+Robert Andrews and Michael~A. Forbes.
+\newblock Ideals, determinants, and straightening: Proving and using lower
+  bounds for polynomial ideals.
+\newblock In {\em 54th Annual {ACM} {SIGACT} Symposium on Theory of Computing,
+  {STOC} 2022}, 2022.
+
+\bibitem{BeameIKPP96}
+Paul Beame, Russell Impagliazzo, Jan Kraj{\'{\i}}{\v{c}}ek, Toniann Pitassi,
+  and Pavel Pudl{\'a}k.
+\newblock Lower bounds on {H}ilbert's {N}ullstellensatz and propositional
+  proofs.
+\newblock {\em Proc. London Math. Soc. (3)}, 73(1):1--26, 1996.
+
+\bibitem{BussIKPRS96}
+Samuel~R. Buss, Russell Impagliazzo, Jan Kraj{\'{\i}}{\v{c}}ek, Pavel
+  Pudl{\'{a}}k, Alexander~A. Razborov, and Ji{\v{r}}{\'{\i}} Sgall.
+\newblock Proof complexity in algebraic systems and bounded depth {F}rege
+  systems with modular counting.
+\newblock {\em Computational Complexity}, 6(3):256--298, 1996.
+
+\bibitem{FSTW21}
+Michael~A. Forbes, Amir Shpilka, Iddo Tzameret, and Avi Wigderson.
+\newblock Proof complexity lower bounds from algebraic circuit complexity.
+\newblock {\em Theory Comput.}, 17:1--88, 2021.
+
+\bibitem{GHT22}
+Nashlen Govindasamy, Tuomas Hakoniemi, and Iddo Tzameret.
+\newblock Simple hard instances for low-depth algebraic proofs.
+\newblock In {\em 2022 IEEE 63rd Annual Symposium on Foundations of Computer
+  Science (FOCS)}, 2022.
+
+\bibitem{GP18}
+Joshua~A. Grochow and Toniann Pitassi.
+\newblock Circuit complexity, proof complexity, and polynomial identity
+  testing: The ideal proof system.
+\newblock {\em J. {ACM}}, 65(6):37:1--37:59, 2018.
+
+\bibitem{LTW18}
+Fu~Li, Iddo Tzameret, and Zhengyu Wang.
+\newblock Characterizing propositional proofs as noncommutative formulas.
+\newblock In {\em SIAM Journal on Computing}, volume~47, pages 1424--1462,
+  2018.
+\newblock Full Version: \url{http://arxiv.org/abs/1412.8746}.
+
+\bibitem{ST21}
+Rahul Santhanam and Iddo Tzameret.
+\newblock Iterated lower bound formulas: a diagonalization-based approach to
+  proof complexity.
+\newblock In Samir Khuller and Virginia~Vassilevska Williams, editors, {\em
+  {STOC} '21: 53rd Annual {ACM} {SIGACT} Symposium on Theory of Computing,
+  Virtual Event, Italy, June 21-25, 2021}, pages 234--247. {ACM}, 2021.
+
+        
+        \end{thebibliography}
+        
+        \end{talk}
+
+
+
+%-------------------------------------------------------------------------------
+
+
+
+%% If a talk was given by two authors, then you should use
+%% the star version of the talk environment, which does not
+%% add the speakers to the author index and does not make entries
+%% into the table of contents. Syntax:
+%% -----------------------
+%% \begin{talk*}[coauthors]{Names of the speakers}{Title of the talk}
+%%      .....
+%% \end{talk*}
+%% -----------------------
+%%
+%% The names of the authors have to be added by hand to the
+%% author index by using the commands:
+%% -----------------------
+%% \aindex{1st Author Sorting Index}{Name of 1st Author}
+%% \aindex{2nd Author Sorting Index}{Name of 2nd Author}
+%% ...
+%% -----------------------
+%%
+%% Furthermore, the entry for the table of contents has to
+%% be created manually by
+%% \mtitem{Author Name(s) (joint with coauthors)}{Title of the talk}
+%% -------------------------------------------------------------------------------
+
+% \begin{talk*}{Luca Lehmann, Maxime M\"uller}
+% {Computing other invariants of topological spaces of dimension three}
+
+% \aindex{Lehmann, Luca}{Luca Lehmann}
+% \aindex{Muller, Maxime}{Maxime M\"uller}
+
+% \mtitem{Luca Lehmann, Maxime M\"uller}
+% {Computing other invariants of topological spaces of dimension three}
+
+% \noindent
+% The computation of ...
+
+% \end{talk*}
+
+\end{report}
+
+% %% -------------------------------------------------
+% %% The list of e-mail and postal addresses of the participants will be
+% %% inserted by the administration of MFO after your submission of
+% %% this file to "reports at mfo dot de".
+% %% -------------------------------------------------
+
+\end{document}
